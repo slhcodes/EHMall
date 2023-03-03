@@ -11,6 +11,7 @@ public class TestController {
 @GetMapping("/test")
     public String test()
 {
+    System.out.println("hhh");//
     return "Hi,human!";
 }
 }
