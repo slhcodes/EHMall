@@ -9,8 +9,5 @@ class EhMallApplicationTests {
     @Test
     void contextLoads() {
     }
-    @Test
-    void contextLoads1() {
-    }
 
 }
