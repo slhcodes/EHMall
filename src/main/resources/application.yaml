@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://172.17.0.1:3306/eh
+    url: jdbc:mysql://123.249.120.9:3306/erhuo
     username: root
-    password: 123456
+    password: CUGerhuo222
 server:
   port: 8082
 mybatis-plus:
