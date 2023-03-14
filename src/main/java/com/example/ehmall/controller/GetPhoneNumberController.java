@@ -5,6 +5,7 @@ import com.example.ehmall.Util.RsaUtil.RsaServerUtilsImpl;
 import com.example.ehmall.service.impl.GetPhoneNumberServiceImpl;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("/phonenumber")
 public class GetPhoneNumberController
-{   @GetMapping("/getnumber")
+{   @PostMapping("/getnumber")
     public byte[] GetNumber(String token,String publicKey) throws Exception {
         GetPhoneNumberServiceImpl getPhoneNumberService=new GetPhoneNumberServiceImpl();
     // 服务器要发送的信息
