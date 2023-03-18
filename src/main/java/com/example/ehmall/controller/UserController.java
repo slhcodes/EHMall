@@ -42,15 +42,36 @@ public class UserController
     public boolean InsertUserByPhone(@ApiParam(name="phone",required = true)
                         @RequestParam String phone)
     {
+        /**
+         * 首先查询该手机号的用户是否存在
+         * tip：1.项目采用redis缓存，每一个手机号都会在redis中进行一次缓存，而用户登录时首先查询redis缓存
+         * 如果redis查询不存在，则表明用户未注册，此时说明mysql中也没用该记录，对改手机号进行注册；
+         * 2.注册流程：1）插入mysql，等待mysql插入成功后，插入redis，两次插入都完成，则用户注册成功
+         * 假设1：用户注册时，数据插入mysql成功，但是插入redis失败，用户再次登录，此时系统当作用户未注册，
+         * 执行注册流程1），此时会再次插入mysql，产生重复数据，会造成后续处理上的问题。
+         * 为了解决该问题，这里的插入接口，选择先进行查询，查询手机号不存在再进行插入，否则直接返回插入成功
+         * 这样做会增大一定的开销，但是可以避免一些数据冗余造成的问题。
+         * 而mysql中的存放用户数据的user表以id为主键，考虑到对非主键phone的全表查询会很慢，因此对phone列
+         * 建立哈希索引，提高查询效率。
+         * @author 施立豪
+         * @time 2023/3/18
+         */
         LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<User>();
         lqw.eq(User::getPhone, phone);
         User loginUser = userMapper.selectOne(lqw);
+        /**
+         * 如果不存在则插入
+         */
         if(loginUser==null){
         User user = new User();
         user.setPhone(phone);
         user.setState(true);
         int result=userMapper.insert(user);
-        return result==1;}else return true;
+        return result==1;}
+        /**
+         * 如果存在则直接返回插入成功
+         */
+        else return true;
     }
 
     /**
