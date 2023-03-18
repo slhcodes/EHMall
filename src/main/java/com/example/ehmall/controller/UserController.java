@@ -1,6 +1,7 @@
 package com.example.ehmall.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.ehmall.entity.User;
 import com.example.ehmall.mapper.UserMapper;
@@ -41,11 +42,15 @@ public class UserController
     public boolean InsertUserByPhone(@ApiParam(name="phone",required = true)
                         @RequestParam String phone)
     {
+        LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<User>();
+        lqw.eq(User::getPhone, phone);
+        User loginUser = userMapper.selectOne(lqw);
+        if(loginUser==null){
         User user = new User();
         user.setPhone(phone);
         user.setState(true);
         int result=userMapper.insert(user);
-        return result==1;
+        return result==1;}else return true;
     }
 
     /**
