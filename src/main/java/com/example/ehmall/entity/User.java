@@ -8,13 +8,14 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author slh
  * @since 2023-03-13
  */
 @Data
+
 @EqualsAndHashCode(callSuper = false)
 public class User implements Serializable {
 
