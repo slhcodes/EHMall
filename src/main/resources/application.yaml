@@ -4,10 +4,23 @@ spring:
     url: jdbc:mysql://123.249.120.9:3306/erhuo
     username: root
     password: CUGerhuo222
+  redis:
+    database: 0
+    host: 123.249.120.9
+    port: 8083
+    password: CUGerhuo333
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 200
+        min-idle: 0
+    timeout: 1000
+
 server:
   port: 8082
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath*:com/example/EHMall/mapper/xml/**.xml
+
 
