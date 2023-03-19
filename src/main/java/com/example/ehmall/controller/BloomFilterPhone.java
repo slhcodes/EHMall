@@ -9,11 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 电话号码查询布隆过滤器实现
+ * @author 施立豪
+ * @time 2023/3/19
+ */
 @Api(tags="布隆过滤器电话号码接口")
 @RestController
 @RequestMapping("/bloomfilterofphone")
 public class BloomFilterPhone {
-
+    /**
+     *向注册的手机号过滤器加入手机号
+     * @param phone 手机号
+     * @return 是否添加成功
+     */
     @ApiOperation(value = "添加手机号到注册过滤器",notes = "插入")
     @GetMapping("/insertbyphone")
     public boolean InsertUserByPhone(@ApiParam(name="phone",required = true)
@@ -21,6 +30,12 @@ public class BloomFilterPhone {
     {
         return RedissonBloomFilterOfPhone.InsertPhone(phone);
     }
+
+    /**
+     * 查询注册过滤器手机号是否存在
+     * @param phone 手机号
+     * @return  是否存在
+     */
     @ApiOperation(value = "查询手机号是否注册",notes = "查询")
     @GetMapping("/existphone")
     public boolean IsPhoneExist(@ApiParam(name="phone",required = true)
@@ -28,6 +43,12 @@ public class BloomFilterPhone {
     {
         return RedissonBloomFilterOfPhone.IsPhoneExist(phone);
     }
+
+    /**
+     * 查询封号过滤器手机号是否存在
+     * @param phone 手机号
+     * @return 是否存在
+     */
     @ApiOperation(value = "查询手机号是否被封",notes = "查询")
     @GetMapping("/isphonebaned")
     public boolean IsPhoneBaned(@ApiParam(name="phone",required = true)
@@ -35,6 +56,12 @@ public class BloomFilterPhone {
     {
         return RedissonBloomFilterOfPhone.IsPhoneBaned(phone);
     }
+
+    /**
+     * 插入手机号到封号过滤器
+     * @param phone 手机号
+     * @return  是否成功
+     */
     @ApiOperation(value = "添加手机号到封号过滤器",notes = "插入")
     @GetMapping("/banphone")
     public boolean BanPhone(@ApiParam(name="phone",required = true)
