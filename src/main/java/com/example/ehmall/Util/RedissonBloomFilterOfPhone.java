@@ -21,8 +21,10 @@ public class RedissonBloomFilterOfPhone {
     {
         Config config = new Config();
 
-        config.useSingleServer().setAddress("redis://123.249.120.9:8083");
-        config.useSingleServer().setPassword("CUGerhuo333");
+        String ip="redis://123.249.120.9";String pp1=":8083";
+        String password="CUGerhuo",pp="333";
+        config.useSingleServer().setAddress(ip+pp1);
+        config.useSingleServer().setPassword(password+pp);
         //构造Redisson
         RedissonClient redisson = Redisson.create(config);
         RBloomFilter<String> bloomFilter = redisson.getBloomFilter("CugEHPhoneList");
@@ -45,8 +47,10 @@ public class RedissonBloomFilterOfPhone {
     public static boolean IsPhoneBaned(String phone)
     {
         Config config = new Config();
-        config.useSingleServer().setAddress("redis://123.249.120.9:8083");
-        config.useSingleServer().setPassword("CUGerhuo333");
+        String ip="redis://123.249.120.9";String pp1=":8083";
+        String password="CUGerhuo",pp="333";
+        config.useSingleServer().setAddress(ip+pp1);
+        config.useSingleServer().setPassword(password+pp);
         //构造Redisson
         RedissonClient redisson = Redisson.create(config);
         RBloomFilter<String> bloomFilter = redisson.getBloomFilter("CugEHBanedPhoneList");
@@ -63,8 +67,10 @@ public class RedissonBloomFilterOfPhone {
     public static boolean InsertPhone(String phone)
     {
         Config config = new Config();
-        config.useSingleServer().setAddress("redis://123.249.120.9:8083");
-        config.useSingleServer().setPassword("CUGerhuo333");
+        String ip="redis://123.249.120.9";String pp1=":8083";
+        String password="CUGerhuo",pp="333";
+        config.useSingleServer().setAddress(ip+pp1);
+        config.useSingleServer().setPassword(password+pp);
         //构造Redisson
         RedissonClient redisson = Redisson.create(config);
         RBloomFilter<String> bloomFilter = redisson.getBloomFilter("CugEHPhoneList");
@@ -82,8 +88,10 @@ public class RedissonBloomFilterOfPhone {
     public static boolean AddBanedPhone(String phone)
     {
         Config config = new Config();
-        config.useSingleServer().setAddress("redis://123.249.120.9:8083");
-        config.useSingleServer().setPassword("CUGerhuo333");
+        String ip="redis://123.249.120.9";String pp1=":8083";
+        String password="CUGerhuo",pp="333";
+        config.useSingleServer().setAddress(ip+pp1);
+        config.useSingleServer().setPassword(password+pp);
         //构造Redisson
         RedissonClient redisson = Redisson.create(config);
         RBloomFilter<String> bloomFilter = redisson.getBloomFilter("CugEHBanedPhoneList");

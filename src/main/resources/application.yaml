@@ -1,14 +1,14 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://123.249.120.9:3306/erhuo
-    username: root
-    password: CUGerhuo222
+    url: ENC(ZHIKqWxNdBRSv8wUqd96mjFWJugjNRlkBu7p18y4UEv93T9LqBuBFF1VY5NQywwk----------------)
+    username: ENC(RsZO/TufVTVLG45qqDUfdQ==----------------)
+    password: ENC(dfeBdGv+YW5enw0HmupELiLa0OQVExnJ----------------)
   redis:
     database: 0
-    host: 123.249.120.9
+    host: ENC(pn7ejuZmlyrvUoZ07neMVT8H54VeV+CT----------------)
     port: 8083
-    password: CUGerhuo333
+    password: ENC(HL3U6wYxEctA+TWkAD+mHnUB6YrhMw/X----------------)
     jedis:
       pool:
         max-active: 8
@@ -23,4 +23,6 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath*:com/example/EHMall/mapper/xml/**.xml
 
-
+jasypt:
+  encryptor:
+    password: erp
