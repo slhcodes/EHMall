@@ -12,7 +12,7 @@ public class EhMallApplication {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                io.jaegertracing.Configuration config = new io.jaegertracing.Configuration("CUG贰货");
+                io.jaegertracing.Configuration config = new io.jaegertracing.Configuration("CUG贰货服务端");
                 io.jaegertracing.Configuration.SenderConfiguration sender = new io.jaegertracing.Configuration.SenderConfiguration();
                 // 将 <endpoint> 替换为控制台概览页面上相应客户端和地域的接入点。
                 sender.withEndpoint("http://tracing-analysis-dc-hz.aliyuncs.com/adapt_f6yah647nw@42a790d7a35fc27_f6yah647nw@53df7ad2afe8301/api/traces");

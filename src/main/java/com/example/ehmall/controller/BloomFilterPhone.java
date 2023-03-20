@@ -40,7 +40,7 @@ public class BloomFilterPhone {
         try (Scope ignored = tracer.scopeManager().activate(span,true)) {
             // 业务逻辑写这里
             tracer.activeSpan().setTag("type", "redis");
-           result= RedissonBloomFilterOfPhone.InsertPhone(phone);
+           result= RedissonBloomFilterOfPhone.InsertPhonere(phone);
         } catch (Exception e) {
             TracingHelper.onError(e, span);
             throw e;
@@ -69,7 +69,7 @@ public class BloomFilterPhone {
             try (Scope ignored = tracer.scopeManager().activate(span,true)) {
                 tracer.activeSpan().setTag("type", "redis");
                 // 业务逻辑写这里
-                result=  RedissonBloomFilterOfPhone.IsPhoneExist(phone);
+                result=  RedissonBloomFilterOfPhone.IsPhoneExistre(phone);
             } catch (Exception e) {
                 TracingHelper.onError(e, span);
                 throw e;

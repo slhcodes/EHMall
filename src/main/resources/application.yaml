@@ -16,6 +16,8 @@ spring:
         min-idle: 0
     timeout: 1000
 
+
+
 server:
   port: 8082
 mybatis-plus:
