@@ -3,8 +3,14 @@ package com.example.ehmall.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.example.ehmall.Util.RedissonBloomFilterOfPhone;
+import com.example.ehmall.Util.TracingHelper;
 import com.example.ehmall.entity.User;
 import com.example.ehmall.mapper.UserMapper;
+import io.opentracing.Scope;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
+import io.opentracing.util.GlobalTracer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -56,22 +62,38 @@ public class UserController
          * @author 施立豪
          * @time 2023/3/18
          */
-        LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<User>();
-        lqw.eq(User::getPhone, phone);
-        User loginUser = userMapper.selectOne(lqw);
-        /**
-         * 如果不存在则插入
-         */
-        if(loginUser==null){
-        User user = new User();
-        user.setPhone(phone);
-        user.setState(true);
-        int result=userMapper.insert(user);
-        return result==1;}
-        /**
-         * 如果存在则直接返回插入成功
-         */
-        else return true;
+        boolean result1=false;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("手机号添加用户").withTag("controller", "InsertUserByPhone").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            // 业务逻辑写这里
+            tracer.activeSpan().setTag("type", "mysql");
+
+            LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<User>();
+            lqw.eq(User::getPhone, phone);
+            User loginUser = userMapper.selectOne(lqw);
+            /**
+             * 如果不存在则插入
+             */
+            if(loginUser==null){
+                User user = new User();
+                user.setPhone(phone);
+                user.setState(true);
+                int result=userMapper.insert(user);
+                result1= result==1;}
+            /**
+             * 如果存在则直接返回插入成功
+             */
+            else
+            result1=true;
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+            return result1;
+        }
     }
 
     /**
@@ -90,10 +112,26 @@ public class UserController
          * 查询到被封手机号用户的实体
          * 只更新一个属性，账号状态设置为0-表示被封
          */
-        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("phone",phone).set("state", 0);
-        int result=userMapper.update(null, updateWrapper);
-        return result==1;
+        boolean result1=false;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("手机号封禁用户").withTag("controller", "BanUserByPhone").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            // 业务逻辑写这里
+            tracer.activeSpan().setTag("type", "mysql");
+
+            UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.eq("phone",phone).set("state", 0);
+            int result=userMapper.update(null, updateWrapper);
+            result1=(result==1);
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+            return result1;
+        }
+
     }
 
 

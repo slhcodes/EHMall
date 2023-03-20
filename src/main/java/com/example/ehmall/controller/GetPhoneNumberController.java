@@ -1,8 +1,15 @@
 package com.example.ehmall.controller;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.ehmall.Util.RsaUtil.RsaServerUtils;
 import com.example.ehmall.Util.RsaUtil.RsaServerUtilsImpl;
+import com.example.ehmall.Util.TracingHelper;
+import com.example.ehmall.entity.User;
 import com.example.ehmall.service.impl.GetPhoneNumberServiceImpl;
+import io.opentracing.Scope;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
+import io.opentracing.util.GlobalTracer;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,13 +29,27 @@ import java.util.Arrays;
 public class GetPhoneNumberController
 {   @PostMapping("/getnumber")
     public byte[] GetNumber(String token,String publicKey) throws Exception {
+    byte[] cipherText;
+    Tracer tracer = GlobalTracer.get();
+    // 创建spann
+    Span span = tracer.buildSpan("Token获取phoneNumber").withTag("controller", "GetNumber").start();
+    try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+        // 业务逻辑写这里
+        tracer.activeSpan().setTag("type", "http");
+
         GetPhoneNumberServiceImpl getPhoneNumberService=new GetPhoneNumberServiceImpl();
-    // 服务器要发送的信息
-    String info = getPhoneNumberService.GetPhoneNumber(token);
-    // 服务器收到公钥后将信息加密
-    RsaServerUtils rsaServerUtils = new RsaServerUtilsImpl();
-    byte[] cipherText = rsaServerUtils.encrypt(info, publicKey);
-    System.out.println(Arrays.toString(cipherText));
+        // 服务器要发送的信息
+        String info = getPhoneNumberService.GetPhoneNumber(token);
+        // 服务器收到公钥后将信息加密
+        RsaServerUtils rsaServerUtils = new RsaServerUtilsImpl();
+        cipherText = rsaServerUtils.encrypt(info, publicKey);
+        System.out.println(Arrays.toString(cipherText));
+    } catch (Exception e) {
+        TracingHelper.onError(e, span);
+        throw e;
+    } finally {
+        span.finish();
+    }
         return cipherText;
     }
 

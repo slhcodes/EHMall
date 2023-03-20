@@ -1,6 +1,11 @@
 package com.example.ehmall.controller;
 
 import com.example.ehmall.Util.RedissonBloomFilterOfPhone;
+import com.example.ehmall.Util.TracingHelper;
+import io.opentracing.Scope;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
+import io.opentracing.util.GlobalTracer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,7 +33,22 @@ public class BloomFilterPhone {
     public boolean InsertUserByPhone(@ApiParam(name="phone",required = true)
                                      @RequestParam String phone)
     {
-        return RedissonBloomFilterOfPhone.InsertPhone(phone);
+        boolean result=false;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("添加手机号到注册过滤器").withTag("controller", "InsertUserByPhone").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            // 业务逻辑写这里
+            tracer.activeSpan().setTag("type", "redis");
+           result= RedissonBloomFilterOfPhone.InsertPhone(phone);
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+            return result;
+        }
+
     }
 
     /**
@@ -41,7 +61,25 @@ public class BloomFilterPhone {
     public boolean IsPhoneExist(@ApiParam(name="phone",required = true)
                                      @RequestParam String phone)
     {
-        return RedissonBloomFilterOfPhone.IsPhoneExist(phone);
+        {
+            boolean result=false;
+            Tracer tracer = GlobalTracer.get();
+            // 创建spann
+            Span span = tracer.buildSpan("查询手机号是否注册").withTag("controller", "IsPhoneExist").start();
+            try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+                tracer.activeSpan().setTag("type", "redis");
+                // 业务逻辑写这里
+                result=  RedissonBloomFilterOfPhone.IsPhoneExist(phone);
+            } catch (Exception e) {
+                TracingHelper.onError(e, span);
+                throw e;
+            } finally {
+                span.finish();
+                return result;
+            }
+
+        }
+
     }
 
     /**
@@ -54,7 +92,26 @@ public class BloomFilterPhone {
     public boolean IsPhoneBaned(@ApiParam(name="phone",required = true)
                                 @RequestParam String phone)
     {
-        return RedissonBloomFilterOfPhone.IsPhoneBaned(phone);
+        {
+
+            boolean result=false;
+            Tracer tracer = GlobalTracer.get();
+            // 创建spann
+            Span span = tracer.buildSpan("查询手机号是否被封").withTag("controller", "IsPhoneBaned").start();
+            try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+                tracer.activeSpan().setTag("type", "redis");
+                // 业务逻辑写这里
+                result=   RedissonBloomFilterOfPhone.IsPhoneBaned(phone);
+            } catch (Exception e) {
+                TracingHelper.onError(e, span);
+                throw e;
+            } finally {
+                span.finish();
+                return result;
+            }
+
+        }
+
     }
 
     /**
@@ -67,6 +124,24 @@ public class BloomFilterPhone {
     public boolean BanPhone(@ApiParam(name="phone",required = true)
                             @RequestParam String phone)
     {
-        return RedissonBloomFilterOfPhone.AddBanedPhone(phone);
+        {
+            boolean result=false;
+            Tracer tracer = GlobalTracer.get();
+            // 创建spann
+            Span span = tracer.buildSpan("查询手机号是否被封").withTag("controller", "BanPhone").start();
+            try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+                tracer.activeSpan().setTag("type", "redis");
+                // 业务逻辑写这里
+                result=  RedissonBloomFilterOfPhone.AddBanedPhone(phone);
+            } catch (Exception e) {
+                TracingHelper.onError(e, span);
+                throw e;
+            } finally {
+                span.finish();
+                return result;
+            }
+
+        }
+
     }
 }

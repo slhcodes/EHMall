@@ -4,6 +4,7 @@ import org.redisson.Redisson;
 import org.redisson.api.RBloomFilter;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * redis布隆过滤器查询类
@@ -64,6 +65,7 @@ public class RedissonBloomFilterOfPhone {
      * @return  返回是否插入成功
      * @author 施立豪
      */
+
     public static boolean InsertPhone(String phone)
     {
         Config config = new Config();
