@@ -1,5 +1,6 @@
 package com.example.ehmall.controller;
 
+import com.example.ehmall.Util.NameUtil;
 import com.example.ehmall.Util.RedissonBloomFilterOfPhone;
 import com.example.ehmall.Util.TracingHelper;
 import io.opentracing.Scope;
@@ -62,6 +63,7 @@ public class BloomFilterPhone {
                                      @RequestParam String phone)
     {
         {
+            System.out.println(NameUtil.getNickName());
             boolean result=false;
             Tracer tracer = GlobalTracer.get();
             // 创建spann

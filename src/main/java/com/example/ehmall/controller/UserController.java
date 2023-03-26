@@ -46,7 +46,8 @@ public class UserController
     @ApiOperation(value = "手机号登录添加用户",notes = "添加用户")
     @GetMapping("/insertuserbyphone")
     public boolean InsertUserByPhone(@ApiParam(name="phone",required = true)
-                        @RequestParam String phone)
+                        @RequestParam String phone,@ApiParam(name="username",required = true)
+    @RequestParam String username)
     {
         /**
          * 首先查询该手机号的用户是否存在
@@ -80,6 +81,7 @@ public class UserController
                 User user = new User();
                 user.setPhone(phone);
                 user.setState(true);
+                user.setUsername(username);
                 int result=userMapper.insert(user);
                 result1= result==1;}
             /**
@@ -124,6 +126,36 @@ public class UserController
             updateWrapper.eq("phone",phone).set("state", 0);
             int result=userMapper.update(null, updateWrapper);
             result1=(result==1);
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+            return result1;
+        }
+
+    }
+
+    @ApiOperation(value = "根据手机号查询id",notes = "查询id")
+    @GetMapping("/getidbyphone")
+    public int GetIdByPhone(@ApiParam(name="phone",required = true)
+                                  @RequestParam String phone)
+    {
+        /**
+         * 查询到被封手机号用户的实体
+         * 只更新一个属性，账号状态设置为0-表示被封
+         */
+        int result1=-1;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("手机号查询id").withTag("controller", "GetidByPhone").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            // 业务逻辑写这里
+            tracer.activeSpan().setTag("type", "mysql");
+            LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<User>();
+            lqw.eq(User::getPhone, phone);
+            User loginUser = userMapper.selectOne(lqw);
+            result1=loginUser.getId();
         } catch (Exception e) {
             TracingHelper.onError(e, span);
             throw e;
