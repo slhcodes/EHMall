@@ -2,6 +2,7 @@ package com.example.ehmall.controller;
 
 import com.example.ehmall.Util.NameUtil;
 import com.example.ehmall.Util.RedissonBloomFilterOfPhone;
+import com.example.ehmall.Util.RedissonBloomFilterOfQq;
 import com.example.ehmall.Util.TracingHelper;
 import io.opentracing.Scope;
 import io.opentracing.Span;
@@ -51,6 +52,33 @@ public class BloomFilterPhone {
         }
 
     }
+    /**
+     *向注册的qq号过滤器加入qq
+     * @param qq qq号
+     * @return 是否添加成功
+     */
+    @ApiOperation(value = "添加qq号到注册过滤器",notes = "插入")
+    @GetMapping("/insertbyqq")
+    public boolean InsertUserByQq(@ApiParam(name="qq",required = true)
+                                     @RequestParam String qq)
+    {
+        boolean result=false;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("添加qq号到注册过滤器").withTag("controller", "InsertUserByQq").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            // 业务逻辑写这里
+            tracer.activeSpan().setTag("type", "redis");
+            result= RedissonBloomFilterOfQq.InsertQqre(qq);
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+            return result;
+        }
+
+    }
 
     /**
      * 查询注册过滤器手机号是否存在
@@ -72,6 +100,39 @@ public class BloomFilterPhone {
                 tracer.activeSpan().setTag("type", "redis");
                 // 业务逻辑写这里
                 result=  RedissonBloomFilterOfPhone.IsPhoneExistre(phone);
+            } catch (Exception e) {
+                TracingHelper.onError(e, span);
+                throw e;
+            } finally {
+                span.finish();
+                return result;
+            }
+
+        }
+
+    }
+
+    /**
+     * 查询注册过滤器QQ号是否存在
+     * @param qq 手机号
+     * @return  是否存在
+     * @time 2023/3/28
+     */
+    @ApiOperation(value = "查询qq号是否注册",notes = "查询")
+    @GetMapping("/existqq")
+    public boolean IsQqExist(@ApiParam(name="qq",required = true)
+                                @RequestParam String qq)
+    {
+        {
+            System.out.println(NameUtil.getNickName());
+            boolean result=false;
+            Tracer tracer = GlobalTracer.get();
+            // 创建spann
+            Span span = tracer.buildSpan("查询qq是否注册").withTag("controller", "IsQQExist").start();
+            try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+                tracer.activeSpan().setTag("type", "redis");
+                // 业务逻辑写这里
+                result=  RedissonBloomFilterOfQq.IsQqExistre(qq);
             } catch (Exception e) {
                 TracingHelper.onError(e, span);
                 throw e;
@@ -117,6 +178,38 @@ public class BloomFilterPhone {
     }
 
     /**
+     * 查询封号过滤器qq号是否存在
+     * @param qq 手机号
+     * @return 是否存在
+     */
+    @ApiOperation(value = "查询qq号是否被封",notes = "查询")
+    @GetMapping("/isqqbaned")
+    public boolean IsQqBaned(@ApiParam(name="qq",required = true)
+                                @RequestParam String qq)
+    {
+        {
+
+            boolean result=false;
+            Tracer tracer = GlobalTracer.get();
+            // 创建spann
+            Span span = tracer.buildSpan("查询qq号是否被封").withTag("controller", "IsPhoneBaned").start();
+            try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+                tracer.activeSpan().setTag("type", "redis");
+                // 业务逻辑写这里
+                result=   RedissonBloomFilterOfQq.IsQqBaned(qq);
+            } catch (Exception e) {
+                TracingHelper.onError(e, span);
+                throw e;
+            } finally {
+                span.finish();
+                return result;
+            }
+
+        }
+
+    }
+
+    /**
      * 插入手机号到封号过滤器
      * @param phone 手机号
      * @return  是否成功
@@ -135,6 +228,37 @@ public class BloomFilterPhone {
                 tracer.activeSpan().setTag("type", "redis");
                 // 业务逻辑写这里
                 result=  RedissonBloomFilterOfPhone.AddBanedPhone(phone);
+            } catch (Exception e) {
+                TracingHelper.onError(e, span);
+                throw e;
+            } finally {
+                span.finish();
+                return result;
+            }
+
+        }
+
+    }
+
+    /**
+     * 插入qq号到封号过滤器
+     * @param qq qq号
+     * @return  是否成功
+     */
+    @ApiOperation(value = "添加qq号到封号过滤器",notes = "插入")
+    @GetMapping("/banqq")
+    public boolean BanQq(@ApiParam(name="qq",required = true)
+                            @RequestParam String qq)
+    {
+        {
+            boolean result=false;
+            Tracer tracer = GlobalTracer.get();
+            // 创建spann
+            Span span = tracer.buildSpan("查询qq号是否被封").withTag("controller", "Banqq").start();
+            try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+                tracer.activeSpan().setTag("type", "redis");
+                // 业务逻辑写这里
+                result=  RedissonBloomFilterOfQq.AddBanedQq(qq);
             } catch (Exception e) {
                 TracingHelper.onError(e, span);
                 throw e;
