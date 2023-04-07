@@ -8,4 +8,5 @@ package com.example.ehmall.service;
  * @since 2023-03-13 16：51
  */
 public interface GetPhoneNumberService {
+    public  com.aliyun.dypnsapi20170525.Client createClient(String accessKeyId, String accessKeySecret) ;
 }
