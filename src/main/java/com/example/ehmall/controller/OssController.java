@@ -1,5 +1,6 @@
 package com.example.ehmall.controller;
 import com.example.ehmall.Util.AssumeRoleUtil;
+import com.example.ehmall.entity.Oss;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,7 @@ import java.util.List;
 public class OssController {
     @ApiOperation(value = "对象存储", notes = "ID,SECRET,TOKEN")
     @GetMapping("/oos")
-    public List<String> GetOOS() throws Exception {
+    public Oss GetOOS() throws Exception {
         return AssumeRoleUtil.GetOssCredentials();
     }
 }
