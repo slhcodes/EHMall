@@ -9,14 +9,15 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author slh
- * @since 2023-03-13
+ * @since 2023-04-08
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+
 public class Commodity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,8 +29,14 @@ public class Commodity implements Serializable {
 
     private String description;
 
+    /**
+     * 图片网址
+     */
     private String url1;
 
+    /**
+     * 视频网址
+     */
     private String url2;
 
     private Float price;
@@ -37,6 +44,21 @@ public class Commodity implements Serializable {
     private Date time;
 
     private Boolean state;
+
+    /**
+     * 分类
+     */
+    private String category;
+
+    /**
+     * 成色
+     */
+    private String quality;
+
+    /**
+     * 购买渠道
+     */
+    private String purchasechannel;
 
 
 }

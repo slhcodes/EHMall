@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.ehmall.Util.RedissonBloomFilterOfPhone;
 import com.example.ehmall.Util.TracingHelper;
+import com.example.ehmall.entity.RespBean;
 import com.example.ehmall.entity.User;
 import com.example.ehmall.mapper.UserMapper;
 import io.opentracing.Scope;
@@ -160,7 +161,7 @@ public class UserController
      */
     @ApiOperation(value = "根据手机号封禁用户",notes = "封禁用户")
     @GetMapping("/banuserbyphone")
-    public boolean BanUserByPhone(@ApiParam(name="phone",required = true)
+    public Boolean BanUserByPhone(@ApiParam(name="phone",required = true)
                         @RequestParam String phone)
     {
         /**
@@ -174,7 +175,6 @@ public class UserController
         try (Scope ignored = tracer.scopeManager().activate(span,true)) {
             // 业务逻辑写这里
             tracer.activeSpan().setTag("type", "mysql");
-
             UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
             updateWrapper.eq("phone",phone).set("state", 0);
             int result=userMapper.update(null, updateWrapper);
