@@ -8,8 +8,9 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
+ * 用户登录信息实体
  *
  * @author slh
  * @since 2023-03-26
@@ -28,7 +29,9 @@ public class User implements Serializable {
     private String wechat;
 
     private String qq;
-
+    /**
+     * 用户状态，是否 未被封禁，
+     */
     private Boolean state;
 
     private String username;

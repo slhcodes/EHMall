@@ -8,8 +8,8 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
- * </p>
+ *
+ * </p>用户资料实体
  *
  * @author slh
  * @since 2023-04-08

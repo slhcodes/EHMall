@@ -11,6 +11,7 @@ import lombok.EqualsAndHashCode;
  * <p>
  *
  * </p>
+ * 商品信息实体
  *
  * @author slh
  * @since 2023-04-08
