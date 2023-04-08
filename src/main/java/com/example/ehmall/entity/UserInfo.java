@@ -56,5 +56,10 @@ public class UserInfo implements Serializable {
      */
     private String imageUrl;
 
+    /**
+     * 用户名
+     */
+    private String username;
+
 
 }
