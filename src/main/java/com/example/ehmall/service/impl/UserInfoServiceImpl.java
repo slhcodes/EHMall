@@ -39,7 +39,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         // 创建spann
         Span span = tracer.buildSpan("用户更新头像").withTag("controller", "setImage").start();
         try (Scope ignored = tracer.scopeManager().activate(span,true)) {
-            // 业务逻辑写这里
+            // 查询用户id的记录，修改记录的image_url
             tracer.activeSpan().setTag("type", "mysql");
             UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
             updateWrapper.eq("user_id",userId).set("image_url", imageUrl);
@@ -83,11 +83,17 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
              * 获取url
              */
             UserInfo curUser = userInfoMapper.selectOne(lqw);
+            /**
+             * 用户不在表中，需要插入用户并返回空
+             */
             if(curUser==null)
             {
                 InsertUser(userId,"用户"+userId);
+                result1="";
             }
+            else {
             result1 = curUser.getImageUrl();
+                }
         } catch (Exception e) {
             TracingHelper.onError(e, span);
             throw e;
