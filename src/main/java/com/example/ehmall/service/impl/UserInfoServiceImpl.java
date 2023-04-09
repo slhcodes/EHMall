@@ -83,6 +83,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
              * 获取url
              */
             UserInfo curUser = userInfoMapper.selectOne(lqw);
+            if(curUser==null)
+            {
+                InsertUser(userId,"用户"+userId);
+            }
             result1 = curUser.getImageUrl();
         } catch (Exception e) {
             TracingHelper.onError(e, span);
