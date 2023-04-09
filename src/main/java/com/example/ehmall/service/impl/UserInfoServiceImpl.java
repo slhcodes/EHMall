@@ -62,18 +62,17 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
      * @author slh
      * @time 2023/4/8
      */
-    public RespBean getImage(int userId)
-    {
+    public RespBean getImage(int userId) {
 
         /**
          * 查询到用户资料的实体
          * 获取其URL返回
          */
-       String result1="";
+        String result1 = "";
         Tracer tracer = GlobalTracer.get();
         // 创建spann
         Span span = tracer.buildSpan("用户id查询图片地址").withTag("controller", "getImage").start();
-        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+        try (Scope ignored = tracer.scopeManager().activate(span, true)) {
             tracer.activeSpan().setTag("type", "mysql");
             LambdaQueryWrapper<UserInfo> lqw = new LambdaQueryWrapper<UserInfo>();
             /**
@@ -84,16 +83,45 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
              * 获取url
              */
             UserInfo curUser = userInfoMapper.selectOne(lqw);
-            result1=curUser.getImageUrl();
+            result1 = curUser.getImageUrl();
         } catch (Exception e) {
             TracingHelper.onError(e, span);
             throw e;
         } finally {
             span.finish();
-            if(result1.length()>0)
-            return new RespBean(200,"成功",result1);
-            else return new RespBean(200,"url为空",result1);
+            if (result1.length() > 0)
+                return new RespBean(200, "成功", result1);
+            else return new RespBean(200, "url为空", result1);
         }
-    };
+    }
 
+    /**
+     * 插入用户接口
+     * @param id 用户id
+     * @param userName 用户名
+     * @return true 成功，false 失败
+     */
+    public RespBean InsertUser(int id,String userName)
+    {
+        boolean result1=false;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("插入用户到用户资料表").withTag("UserInfoServiceImpl", "InsertUser").start();
+        try (Scope ignored = tracer.scopeManager().activate(span, true)) {
+            tracer.activeSpan().setTag("type", "mysql");
+            UserInfo user = new UserInfo();
+            user.setUserId(id);
+            user.setUsername(userName);
+            int result=userInfoMapper.insert(user);
+            result1= result==1;
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+            if (result1)
+                return new RespBean(200, "成功", result1);
+            else return new RespBean(200, "失败", result1);
+        }
+    }
 }

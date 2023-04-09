@@ -23,4 +23,8 @@ public interface UserInfoService extends IService<UserInfo> {
      * @return url字符串
      */
     public RespBean getImage(int id);
+    /**
+     * 插入用户id和用户名
+     */
+    public RespBean InsertUser(int id,String userName);
 }
