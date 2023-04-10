@@ -1,18 +1,9 @@
 package com.example.ehmall.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.example.ehmall.Util.TracingHelper;
+import com.example.ehmall.entity.PartUserInfo;
 import com.example.ehmall.entity.RespBean;
-import com.example.ehmall.entity.User;
-import com.example.ehmall.entity.UserInfo;
-import com.example.ehmall.mapper.UserInfoMapper;
-import com.example.ehmall.mapper.UserMapper;
 import com.example.ehmall.service.impl.UserInfoServiceImpl;
-import io.opentracing.Scope;
-import io.opentracing.Span;
-import io.opentracing.Tracer;
-import io.opentracing.util.GlobalTracer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -59,7 +50,15 @@ public class UserInfoController {
                              @RequestParam int userId,@ApiParam(name="userName",required = true)
     @RequestParam String username)
     {
-        return userInfoService.InsertUser(userId,username);
+        return userInfoService.insertUser(userId,username);
+    }
+
+    @ApiOperation(value = "查询用户id,用户名，头像，个签",notes = "成功返回用户实体，失败返回空")
+    @GetMapping("/getpartinfo")
+    public PartUserInfo getPartUserInfo(@ApiParam(name="userId",required = true)
+                                   @RequestParam int userId)
+    {
+        return userInfoService.getPartUserInfo(userId);
     }
 
 

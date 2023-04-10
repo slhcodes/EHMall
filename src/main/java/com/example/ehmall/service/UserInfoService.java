@@ -1,5 +1,6 @@
 package com.example.ehmall.service;
 
+import com.example.ehmall.entity.PartUserInfo;
 import com.example.ehmall.entity.RespBean;
 import com.example.ehmall.entity.UserInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -26,5 +27,12 @@ public interface UserInfoService extends IService<UserInfo> {
     /**
      * 插入用户id和用户名
      */
-    public RespBean InsertUser(int id,String userName);
+    public RespBean insertUser(int id, String userName);
+
+    /**
+     * 查询用户id,username,signature,imageurl,
+     * @param userId
+     * @return
+     */
+    public PartUserInfo getPartUserInfo(int userId);
 }

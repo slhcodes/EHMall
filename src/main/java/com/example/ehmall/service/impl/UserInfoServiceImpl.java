@@ -3,8 +3,8 @@ package com.example.ehmall.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.ehmall.Util.TracingHelper;
+import com.example.ehmall.entity.PartUserInfo;
 import com.example.ehmall.entity.RespBean;
-import com.example.ehmall.entity.User;
 import com.example.ehmall.entity.UserInfo;
 import com.example.ehmall.mapper.UserInfoMapper;
 import com.example.ehmall.service.UserInfoService;
@@ -88,7 +88,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
              */
             if(curUser==null)
             {
-                InsertUser(userId,"用户"+userId);
+                insertUser(userId,"用户"+userId);
                 result1="";
             }
             else {
@@ -99,10 +99,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             throw e;
         } finally {
             span.finish();
-            if (result1.length() > 0)
-                return new RespBean(200, "成功", result1);
-            else return new RespBean(200, "url为空", result1);
-        }
+
+        }if (result1.length() > 0)
+            return new RespBean(200, "成功", result1);
+        else return new RespBean(200, "url为空", result1);
     }
 
     /**
@@ -111,7 +111,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
      * @param userName 用户名
      * @return true 成功，false 失败
      */
-    public RespBean InsertUser(int id,String userName)
+    public RespBean insertUser(int id, String userName)
     {
         boolean result1=false;
         Tracer tracer = GlobalTracer.get();
@@ -133,5 +133,46 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
                 return new RespBean(200, "成功", result1);
             else return new RespBean(200, "失败", result1);
         }
+    }
+
+    /**
+     * 获取用户部分资料接口
+     * @param userId 用户id
+     * @return  资料实体
+     * @time 2023/4/10
+     */
+    @Override
+    public PartUserInfo getPartUserInfo(int userId) {
+        /**
+         * 查询到用户资料的实体
+         * 获取其URL返回
+         */
+        PartUserInfo user=null;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("用户id查询用户部分资料").withTag("controller", "getPartUserInfo").start();
+        try (Scope ignored = tracer.scopeManager().activate(span, true)) {
+            tracer.activeSpan().setTag("type", "mysql");
+            LambdaQueryWrapper<UserInfo> lqw = new LambdaQueryWrapper<UserInfo>();
+            /**
+             * 查询到userid的实体
+             */
+            lqw.eq(UserInfo::getUserId, userId);
+            /**
+             * 获取url
+             */
+            UserInfo curUser = userInfoMapper.selectOne(lqw);
+            if(curUser!=null)
+            {
+                user=new PartUserInfo(curUser.getUserId(),curUser.getUsername(),curUser.getImageUrl(),curUser.getSignature());
+            }
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+        }
+        return user;
+
     }
 }

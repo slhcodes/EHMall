@@ -720,9 +720,13 @@ public class NameUtil {
     }
 
     public static void main(String[] args) {
-        for (int j = 0; j < 100; j++) {
+        for (int j = 0; j < 1; j++) {
             System.out.println(getName());
             System.out.println(getAdminName());
+            System.out.println(getTwoSurname());
+            System.out.println(getNickName()
+            );
+
         }
     }
 
