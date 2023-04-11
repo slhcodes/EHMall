@@ -99,10 +99,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             throw e;
         } finally {
             span.finish();
-
-        }if (result1.length() > 0)
-            return new RespBean(200, "成功", result1);
-        else return new RespBean(200, "url为空", result1);
+        }
+        if (result1==null)
+        { return new RespBean(200, "url为空", result1);}
+        else {return new RespBean(200, "成功", result1);}
     }
 
     /**
