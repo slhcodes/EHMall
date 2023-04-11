@@ -72,7 +72,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         Tracer tracer = GlobalTracer.get();
         // 创建spann
         Span span = tracer.buildSpan("用户id查询图片地址").withTag("controller", "getImage").start();
-        try (Scope ignored = tracer.scopeManager().activate(span, true)) {
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
             tracer.activeSpan().setTag("type", "mysql");
             LambdaQueryWrapper<UserInfo> lqw = new LambdaQueryWrapper<UserInfo>();
             /**
@@ -117,7 +117,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         Tracer tracer = GlobalTracer.get();
         // 创建spann
         Span span = tracer.buildSpan("插入用户到用户资料表").withTag("UserInfoServiceImpl", "InsertUser").start();
-        try (Scope ignored = tracer.scopeManager().activate(span, true)) {
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
             tracer.activeSpan().setTag("type", "mysql");
             UserInfo user = new UserInfo();
             user.setUserId(id);
@@ -151,7 +151,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         Tracer tracer = GlobalTracer.get();
         // 创建spann
         Span span = tracer.buildSpan("用户id查询用户部分资料").withTag("controller", "getPartUserInfo").start();
-        try (Scope ignored = tracer.scopeManager().activate(span, true)) {
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
             tracer.activeSpan().setTag("type", "mysql");
             LambdaQueryWrapper<UserInfo> lqw = new LambdaQueryWrapper<UserInfo>();
             /**
