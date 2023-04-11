@@ -50,11 +50,11 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             throw e;
         } finally {
             span.finish();
-            if(result1==true)
-                return new RespBean(200,"成功",result1);
-            else
-                return new RespBean(200,"失败",result1);
-        }
+
+        }    if(result1==true){
+        return new RespBean(200,"成功",result1);}
+    else
+    { return new RespBean(200,"失败",result1);}
     };
     /**
      * 获取用户头像
@@ -129,10 +129,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             throw e;
         } finally {
             span.finish();
-            if (result1)
-                return new RespBean(200, "成功", result1);
-            else return new RespBean(200, "失败", result1);
-        }
+
+        }   if (result1){
+        return new RespBean(200, "成功", result1);}
+    else {return new RespBean(200, "失败", result1);}
     }
 
     /**
