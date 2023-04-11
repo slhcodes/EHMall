@@ -1,5 +1,9 @@
-package com.example.ehmall.Util.RsaUtil;
+package com.example.ehmall.util.RsaUtil;
 
+/**
+ * 对称加密接口
+ * @author 施立豪
+ */
 public interface RsaClientUtils {
 
     /**

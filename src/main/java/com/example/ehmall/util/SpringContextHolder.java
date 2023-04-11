@@ -1,4 +1,4 @@
-package com.example.ehmall.Util;
+package com.example.ehmall.util;
 
 import org.mybatis.logging.Logger;
 import org.mybatis.logging.LoggerFactory;
@@ -8,6 +8,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author 施立豪
+ */
 @Component
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
     private static Logger logger = LoggerFactory.getLogger(SpringContextHolder.class);

@@ -3,9 +3,7 @@ package com.example.ehmall.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.example.ehmall.Util.RedissonBloomFilterOfPhone;
-import com.example.ehmall.Util.TracingHelper;
-import com.example.ehmall.entity.RespBean;
+import com.example.ehmall.util.TracingHelper;
 import com.example.ehmall.entity.User;
 import com.example.ehmall.mapper.UserMapper;
 import io.opentracing.Scope;
@@ -46,8 +44,8 @@ public class UserController
     private UserMapper userMapper;
     @ApiOperation(value = "手机号登录添加用户",notes = "添加用户")
     @GetMapping("/insertuserbyphone")
-    public boolean InsertUserByPhone(@ApiParam(name="phone",required = true)
-                        @RequestParam String phone,@ApiParam(name="username",required = true)
+    public boolean insertUserByPhone(@ApiParam(name="phone",required = true)
+                        @RequestParam String phone, @ApiParam(name="username",required = true)
     @RequestParam String username)
     {
         /**
@@ -89,19 +87,19 @@ public class UserController
              * 如果存在则直接返回插入成功
              */
             else
-            result1=true;
+            {result1=true;}
         } catch (Exception e) {
             TracingHelper.onError(e, span);
             throw e;
         } finally {
             span.finish();
-            return result1;
-        }
+
+        }return result1;
     }
     @ApiOperation(value = "qq登录添加用户",notes = "添加用户")
     @GetMapping("/insertuserbyqqe")
-    public boolean InsertUserByQq(@ApiParam(name="qq",required = true)
-                                     @RequestParam String qq,@ApiParam(name="username",required = true)
+    public boolean insertUserByQq(@ApiParam(name="qq",required = true)
+                                     @RequestParam String qq, @ApiParam(name="username",required = true)
                                      @RequestParam String username)
     {
         /**手机-》qq
@@ -142,14 +140,14 @@ public class UserController
              * 如果存在则直接返回插入成功
              */
             else
-                result1=true;
+            { result1=true;}
         } catch (Exception e) {
             TracingHelper.onError(e, span);
             throw e;
         } finally {
             span.finish();
-            return result1;
-        }
+
+        }return result1;
     }
 
     /**
@@ -161,7 +159,7 @@ public class UserController
      */
     @ApiOperation(value = "根据手机号封禁用户",notes = "封禁用户")
     @GetMapping("/banuserbyphone")
-    public Boolean BanUserByPhone(@ApiParam(name="phone",required = true)
+    public Boolean banUserByPhone(@ApiParam(name="phone",required = true)
                         @RequestParam String phone)
     {
         /**
@@ -184,9 +182,9 @@ public class UserController
             throw e;
         } finally {
             span.finish();
-            return result1;
-        }
 
+        }
+        return result1;
     }
 
     /**
@@ -198,7 +196,7 @@ public class UserController
      */
     @ApiOperation(value = "根据qqid号封禁用户",notes = "封禁用户")
     @GetMapping("/banuserbyqq")
-    public boolean BanUserByQq(@ApiParam(name="qq",required = true)
+    public boolean banUserByQq(@ApiParam(name="qq",required = true)
                                   @RequestParam String qq)
     {
         /**
@@ -221,14 +219,14 @@ public class UserController
             throw e;
         } finally {
             span.finish();
-            return result1;
-        }
 
+        }
+        return result1;
     }
 
     @ApiOperation(value = "根据手机号查询id",notes = "查询id")
     @GetMapping("/getidbyphone")
-    public int GetIdByPhone(@ApiParam(name="phone",required = true)
+    public int getIdByPhone(@ApiParam(name="phone",required = true)
                                   @RequestParam String phone)
     {
         /**
@@ -251,9 +249,9 @@ public class UserController
             throw e;
         } finally {
             span.finish();
-            return result1;
-        }
 
+        }
+        return result1;
     }
 
     /**
@@ -264,7 +262,7 @@ public class UserController
      */
     @ApiOperation(value = "根据qq号查询id",notes = "查询id")
     @GetMapping("/getidbyqq")
-    public int GetIdByQq(@ApiParam(name="qq",required = true)
+    public int getIdByQq(@ApiParam(name="qq",required = true)
                             @RequestParam String qq)
     {
         /**
@@ -287,9 +285,9 @@ public class UserController
             throw e;
         } finally {
             span.finish();
-            return result1;
-        }
 
+        }
+        return result1;
     }
 
 

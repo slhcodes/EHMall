@@ -2,7 +2,7 @@ package com.example.ehmall.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.example.ehmall.Util.TracingHelper;
+import com.example.ehmall.util.TracingHelper;
 import com.example.ehmall.entity.PartUserInfo;
 import com.example.ehmall.entity.RespBean;
 import com.example.ehmall.entity.UserInfo;

@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RespBean {
-    /*返回的状态码*/
+    /**返回的状态码*/
     private long code;
-    /*相应的提示信息*/
+    /**相应的提示信息*/
     private String message;
-    /*准备返回对象*/
+    /**准备返回对象*/
     private Object object;
 
     /**

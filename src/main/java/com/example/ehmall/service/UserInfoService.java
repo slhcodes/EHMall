@@ -16,16 +16,21 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface UserInfoService extends IService<UserInfo> {
     /**
      * 修改用户头像url
+     * @param id
+     * @param imageUrl
      * @return true 修改成功 false 修改失败
      */
     public RespBean setImage(int id, String imageUrl);
     /**
      * 获取用户头像url
+     * @param id
      * @return url字符串
      */
     public RespBean getImage(int id);
     /**
      * 插入用户id和用户名
+     * @param id
+     * @param userName
      */
     public RespBean insertUser(int id, String userName);
 

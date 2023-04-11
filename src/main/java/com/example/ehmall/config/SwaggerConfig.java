@@ -10,10 +10,13 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
+/**
+ * 配置接口文档类
+ * @author 施立豪
+ */
 @Configuration
 @EnableSwagger2
-@EnableSwaggerBootstrapUI  //第三方swagger增强API注解
+@EnableSwaggerBootstrapUI
 public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
@@ -39,7 +42,8 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("测试项目API")
                 .description("后台管理系统")
-                .contact("")//作者
+                //作者
+                .contact("")
                 .termsOfServiceUrl("")
                 .version("1.0")
                 .build();

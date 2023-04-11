@@ -21,7 +21,9 @@ public class PartUserInfo {
         this.userName = userName;
     }
 
-    //个性签名
+    /**个性签名
+     *
+     */
     private String signature;
     private String userName;
 

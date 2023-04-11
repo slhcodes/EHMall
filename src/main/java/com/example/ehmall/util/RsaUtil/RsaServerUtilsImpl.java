@@ -1,4 +1,4 @@
-package com.example.ehmall.Util.RsaUtil;
+package com.example.ehmall.util.RsaUtil;
 
 import javax.crypto.Cipher;
 import java.nio.charset.StandardCharsets;
@@ -6,7 +6,10 @@ import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
-
+/**
+ * 对称加密服务实现
+ * @author 施立豪
+ */
 public class RsaServerUtilsImpl implements RsaServerUtils {
     @Override
     public byte[] encrypt(String plainText, String publicKey) {

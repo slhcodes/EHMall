@@ -1,11 +1,14 @@
-package com.example.ehmall.Util.RsaUtil;
+package com.example.ehmall.util.RsaUtil;
 
 import javax.crypto.Cipher;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
-
+/**
+ * 对称加密
+ * @author 施立豪
+ */
 public class RsaClientUtilsImpl implements RsaClientUtils {
 
     private String publicKey = null;

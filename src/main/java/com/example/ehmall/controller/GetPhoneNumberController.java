@@ -1,17 +1,14 @@
 package com.example.ehmall.controller;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.example.ehmall.Util.RsaUtil.RsaServerUtils;
-import com.example.ehmall.Util.RsaUtil.RsaServerUtilsImpl;
-import com.example.ehmall.Util.TracingHelper;
-import com.example.ehmall.entity.User;
+import com.example.ehmall.util.RsaUtil.RsaServerUtils;
+import com.example.ehmall.util.RsaUtil.RsaServerUtilsImpl;
+import com.example.ehmall.util.TracingHelper;
 import com.example.ehmall.service.impl.GetPhoneNumberServiceImpl;
 import io.opentracing.Scope;
 import io.opentracing.Span;
 import io.opentracing.Tracer;
 import io.opentracing.util.GlobalTracer;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +25,7 @@ import java.util.Arrays;
 @RequestMapping("/phonenumber")
 public class GetPhoneNumberController
 {   @PostMapping("/getnumber")
-    public byte[] GetNumber(String token,String publicKey) throws Exception {
+    public byte[] getNumber(String token, String publicKey) throws Exception {
     byte[] cipherText;
     Tracer tracer = GlobalTracer.get();
     // 创建spann
@@ -39,7 +36,7 @@ public class GetPhoneNumberController
 
         GetPhoneNumberServiceImpl getPhoneNumberService=new GetPhoneNumberServiceImpl();
         // 服务器要发送的信息
-        String info = getPhoneNumberService.GetPhoneNumber(token);
+        String info = getPhoneNumberService.getPhoneNumber(token);
         // 服务器收到公钥后将信息加密
         RsaServerUtils rsaServerUtils = new RsaServerUtilsImpl();
         cipherText = rsaServerUtils.encrypt(info, publicKey);

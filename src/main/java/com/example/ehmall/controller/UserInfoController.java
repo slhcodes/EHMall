@@ -46,8 +46,8 @@ public class UserInfoController {
     }
     @ApiOperation(value = "插入用户",notes = "成功插入返回true，失败false")
     @GetMapping("/insertuser")
-    public RespBean InsertUserInfo(@ApiParam(name="userId",required = true)
-                             @RequestParam int userId,@ApiParam(name="userName",required = true)
+    public RespBean insertUserInfo(@ApiParam(name="userId",required = true)
+                             @RequestParam int userId, @ApiParam(name="userName",required = true)
     @RequestParam String username)
     {
         return userInfoService.insertUser(userId,username);

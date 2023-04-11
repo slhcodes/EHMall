@@ -1,10 +1,16 @@
-package com.example.ehmall.Util;
+package com.example.ehmall.util;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * 生成昵称
+ * @author 施立豪
+ */
 public class NameUtil {
-    // 头部
-    private static final String[] headerNameArray = new String[]{"快乐的",
+    /** 头部
+     *
+     */
+    private static final String[] HEADER_NAME_ARRAY = new String[]{"快乐的",
             "冷静的",
             "醉熏的",
             "潇洒的",
@@ -336,7 +342,7 @@ public class NameUtil {
             "怕孤单的",
             "懵懂的"};
 
-    private static final String[] foodNameArray = new String[]{"嚓茶",
+    private static final String[] FOOD_NAME_ARRAY = new String[]{"嚓茶",
             "凉面",
             "便当",
             "毛豆",
@@ -683,9 +689,9 @@ public class NameUtil {
      * @return 昵称
      */
     public static String getNickName() {
-        int headNameIndex = getRandom().nextInt(headerNameArray.length);
-        int foodNameIndex = getRandom().nextInt(foodNameArray.length);
-        return headerNameArray[headNameIndex] + foodNameArray[foodNameIndex];
+        int headNameIndex = getRandom().nextInt(HEADER_NAME_ARRAY.length);
+        int foodNameIndex = getRandom().nextInt(FOOD_NAME_ARRAY.length);
+        return HEADER_NAME_ARRAY[headNameIndex] + FOOD_NAME_ARRAY[foodNameIndex];
     }
 
     /**
@@ -695,8 +701,8 @@ public class NameUtil {
      */
     private static String getTwoSurname() {
         int headNameIndex = getRandom().nextInt(surnameArray.length);
-        int foodNameIndex = getRandom().nextInt(foodNameArray.length);
-        return surnameArray[headNameIndex] + foodNameArray[foodNameIndex];
+        int foodNameIndex = getRandom().nextInt(FOOD_NAME_ARRAY.length);
+        return surnameArray[headNameIndex] + FOOD_NAME_ARRAY[foodNameIndex];
     }
 
     /**
@@ -705,8 +711,8 @@ public class NameUtil {
      * @return 管理员
      */
     public static String getAdminName() {
-        int headNameIndex = getRandom().nextInt(headerNameArray.length);
-        return headerNameArray[headNameIndex] + "管理员";
+        int headNameIndex = getRandom().nextInt(HEADER_NAME_ARRAY.length);
+        return HEADER_NAME_ARRAY[headNameIndex] + "管理员";
     }
 
     /**

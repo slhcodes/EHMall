@@ -1,6 +1,6 @@
 package com.example.ehmall;
 
-import com.example.ehmall.Util.NameUtil;
+import com.example.ehmall.util.NameUtil;
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

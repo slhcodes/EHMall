@@ -4,11 +4,16 @@ import io.opentracing.util.GlobalTracer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author 施立豪
+ */
 @SpringBootApplication
 public class EhMallApplication {
 
     public static void main(String[] args) {
-
+/**
+ * 链路追踪
+ */
         new Thread(new Runnable() {
             @Override
             public void run() {
