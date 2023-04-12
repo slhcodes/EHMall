@@ -28,6 +28,14 @@ public interface UserInfoService extends IService<UserInfo> {
      */
     public RespBean getImage(int id);
     /**
+     * 修改用户头像url
+     * @param id
+     * @param username
+     * @time 2023/4/12
+     * @return true 修改成功 false 修改失败
+     */
+    public RespBean setUsername(int id, String username);
+    /**
      * 插入用户id和用户名
      * @param id
      * @param userName
@@ -40,4 +48,5 @@ public interface UserInfoService extends IService<UserInfo> {
      * @return
      */
     public PartUserInfo getPartUserInfo(int userId);
+
 }

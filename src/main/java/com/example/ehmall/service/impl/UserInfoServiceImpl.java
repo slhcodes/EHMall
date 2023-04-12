@@ -104,6 +104,36 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         { return new RespBean(200, "url为空", result1);}
         else {return new RespBean(200, "成功", result1);}
     }
+    /**
+     * 修改用户名
+     * @param id        id
+     * @param username 新的用户名
+     * @return   是否成功
+     */
+    @Override
+    public RespBean setUsername(int id, String username) {
+        boolean result1=false;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("用户修改用户名").withTag("controller", "setUsername").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            // 查询用户id的记录，修改记录的image_url
+            tracer.activeSpan().setTag("type", "mysql");
+            UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.eq("user_id",id).set("username", username);
+            int result=userInfoMapper.update(null, updateWrapper);
+            result1=(result==1);
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+
+        }    if(result1==true){
+            return new RespBean(200,"成功",result1);}
+        else
+        { return new RespBean(200,"失败",result1);}
+    }
 
     /**
      * 插入用户接口

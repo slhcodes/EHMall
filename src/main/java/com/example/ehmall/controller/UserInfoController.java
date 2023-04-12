@@ -44,6 +44,14 @@ public class UserInfoController {
     {
         return userInfoService.getImage(userId);
     }
+    @ApiOperation(value = "修改用户名",notes = "修改用户名,修改成功返回true，失败返回false")
+    @GetMapping("/changeusername")
+    public RespBean setUsername(@ApiParam(name="userId",required = true)
+                             @RequestParam int userId, @ApiParam(name="username",required = true)
+                             @RequestParam String username)
+    {
+        return userInfoService.setUsername(userId,username);
+    }
     @ApiOperation(value = "插入用户",notes = "成功插入返回true，失败false")
     @GetMapping("/insertuser")
     public RespBean insertUserInfo(@ApiParam(name="userId",required = true)
