@@ -36,4 +36,11 @@ public class NlpController {
         System.out.println(text);
         return Nlp.getNlpCategory(text);
     }
+    @ApiOperation(value = "商品品牌",notes = "根据文本推测品牌")
+    @GetMapping("/brand")
+    public List<String> getBrand(@ApiParam(name="text",required = true)
+                                 @RequestParam String text) throws ClientException {
+        System.out.println(text);
+        return Nlp.getNlpBrand(text);
+    }
 }
