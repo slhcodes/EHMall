@@ -13,6 +13,11 @@ import com.example.ehmall.entity.RespBean;
  * @since 2023-04-21
  */
 public interface CommodityService extends IService<Commodity> {
+    /**
+     * 获取商品信息
+     * @param id 商品id
+     * @return
+     */
    Commodity getCommodity(int id);
 
     /**
@@ -21,4 +26,5 @@ public interface CommodityService extends IService<Commodity> {
      * @return  是否成功
      */
     public RespBean insertCommodity(Commodity commodity);
+
 }

@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 public class CommodityController {
     @Autowired
     private CommodityService commodityService;
-    @ApiOperation(value = "插入商品",notes = "成功插入返回true，失败false")
+    @ApiOperation(value = "插入商品",notes = "成功插入商品id 状态码200，失败id 0，状态码201")
     @PostMapping("/insert")
 public RespBean insertCommodity(@RequestBody Commodity commodity)
     {

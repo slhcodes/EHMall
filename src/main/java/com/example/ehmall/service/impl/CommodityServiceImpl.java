@@ -29,16 +29,12 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     @Autowired
     private CommodityMapper commodityMapper;
 
-    public CommodityMapper getCommodityMapper() {
-        return commodityMapper;
-    }
     @Override
     public Commodity getCommodity(int id) {
         /**
          * 查询到用户资料的实体
          * 获取其URL返回
          */
-        Commodity commodity=null;
         Tracer tracer = GlobalTracer.get();
         // 创建spann
         Span span = tracer.buildSpan("商品id查询商品信息资料").withTag("CommodityServiceImpl", " getCommodity").start();
@@ -65,22 +61,25 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     }
     @Override
     public RespBean insertCommodity(Commodity commodity) {
-        boolean result1=false;
+        int id=0;
         Tracer tracer = GlobalTracer.get();
         // 创建spann
         Span span = tracer.buildSpan("插入商品表").withTag("CommodityServiceImpl", "insertCommodity").start();
         try (Scope ignored = tracer.scopeManager().activate(span,true)) {
             tracer.activeSpan().setTag("type", "mysql");
             int result=commodityMapper.insert(commodity);
-            result1= result==1;
+           if( result==1)
+           {
+               id=commodity.getId();
+           }
         } catch (Exception e) {
             TracingHelper.onError(e, span);
             throw e;
         } finally {
             span.finish();
 
-        }   if (result1){
-            return new RespBean(200, "成功", result1);}
-        else {return new RespBean(201, "失败", result1);}
+        }   if (id!=0){
+            return new RespBean(200, "成功", id);}
+        else {return new RespBean(201, "失败",0);}
     }
 }
