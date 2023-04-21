@@ -60,7 +60,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         } finally {
             span.finish();
         }
-        return new RespBean(200,"商品不存在",null);
+        return new RespBean(201,"商品不存在",null);
 
     }
     @Override
@@ -81,6 +81,6 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
 
         }   if (result1){
             return new RespBean(200, "成功", result1);}
-        else {return new RespBean(200, "失败", result1);}
+        else {return new RespBean(201, "失败", result1);}
     }
 }
