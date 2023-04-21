@@ -122,6 +122,7 @@ if(i.getWeight()==1) {
         request.setServiceCode("alinlp");
         //请求参数, 具体请参考《API基础信息文档》进行替换与填写
         request.setText(text);
+        request.setImageUrl("");
         long start = System.currentTimeMillis();
         //获取请求结果，注意这里的GetPosChEcom也需要替换
         GetBrandChEcomResponse response = client.getAcsResponse(request);
