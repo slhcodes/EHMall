@@ -30,6 +30,7 @@ public class Nlp {
                 "LTAI5tPkCWG6cDG9WF2U5D7z",
 
                 "X2VFC0oNf07yN4X2abVc9wHJr5N4zR");
+
         IAcsClient client = new DefaultAcsClient(defaultProfile);
         //构造请求参数，其中GetPosChEcom是算法的actionName, 请查找对应的《API基础信息参考》文档并替换为您需要的算法的ActionName，示例详见下方文档中的：更换API请求
         GetNerChEcomRequest request = new GetNerChEcomRequest();
