@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author slh
- * @since 2023-04-08
+ * @since 2023-04-21
  */
 @Mapper
 public interface CommodityMapper extends BaseMapper<Commodity> {

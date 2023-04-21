@@ -1,9 +1,19 @@
 package com.example.ehmall.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.ehmall.entity.Commodity;
+import com.example.ehmall.entity.PartUserInfo;
+import com.example.ehmall.entity.RespBean;
+import com.example.ehmall.entity.UserInfo;
 import com.example.ehmall.mapper.CommodityMapper;
 import com.example.ehmall.service.CommodityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.ehmall.util.TracingHelper;
+import io.opentracing.Scope;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
+import io.opentracing.util.GlobalTracer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,9 +22,65 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author slh
- * @since 2023-04-08
+ * @since 2023-04-21
  */
 @Service
 public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity> implements CommodityService {
+    @Autowired
+    private CommodityMapper commodityMapper;
 
+    public CommodityMapper getCommodityMapper() {
+        return commodityMapper;
+    }
+    @Override
+    public RespBean getCommodity(int id) {
+        /**
+         * 查询到用户资料的实体
+         * 获取其URL返回
+         */
+        Commodity commodity=null;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("商品id查询商品信息资料").withTag("CommodityServiceImpl", " getCommodity").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            tracer.activeSpan().setTag("type", "mysql");
+            LambdaQueryWrapper<Commodity> lqw = new LambdaQueryWrapper<Commodity>();
+            /**
+             * 查询到id的实体
+             */
+            lqw.eq(Commodity::getId, id);
+           Commodity curCom = commodityMapper.selectOne(lqw);
+            if(curCom!=null)
+            {
+                return new RespBean(200,"成功",curCom);
+            }
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+        }
+        return new RespBean(200,"商品不存在",null);
+
+    }
+    @Override
+    public RespBean insertCommodity(Commodity commodity) {
+        boolean result1=false;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("插入商品表").withTag("CommodityServiceImpl", "insertCommodity").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            tracer.activeSpan().setTag("type", "mysql");
+            int result=commodityMapper.insert(commodity);
+            result1= result==1;
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+
+        }   if (result1){
+            return new RespBean(200, "成功", result1);}
+        else {return new RespBean(200, "失败", result1);}
+    }
 }
