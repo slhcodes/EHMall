@@ -69,7 +69,7 @@ public class Commodity implements Serializable {
     /**
      * 原价
      */
-    private int originalprice;
+    private Float originalprice;
     /**
      * 品牌
      */
