@@ -33,7 +33,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         return commodityMapper;
     }
     @Override
-    public RespBean getCommodity(int id) {
+    public Commodity getCommodity(int id) {
         /**
          * 查询到用户资料的实体
          * 获取其URL返回
@@ -52,7 +52,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
            Commodity curCom = commodityMapper.selectOne(lqw);
             if(curCom!=null)
             {
-                return new RespBean(200,"成功",curCom);
+                return curCom;
             }
         } catch (Exception e) {
             TracingHelper.onError(e, span);
@@ -60,7 +60,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         } finally {
             span.finish();
         }
-        return new RespBean(201,"商品不存在",null);
+        return null;
 
     }
     @Override

@@ -34,7 +34,7 @@ public RespBean insertCommodity(@RequestBody Commodity commodity)
     @GetMapping("/get")
     @ApiOperation(value = "获取商品",notes = "返回实体，失败null")
 
-    public RespBean getCommodity(@ApiParam(name="id",required = true)
+    public Commodity getCommodity(@ApiParam(name="id",required = true)
     @RequestParam int id)
     {
         return commodityService.getCommodity(id);

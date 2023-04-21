@@ -13,7 +13,7 @@ import com.example.ehmall.entity.RespBean;
  * @since 2023-04-21
  */
 public interface CommodityService extends IService<Commodity> {
-    RespBean getCommodity(int id);
+   Commodity getCommodity(int id);
 
     /**
      * 插入商品
