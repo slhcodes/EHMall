@@ -26,8 +26,10 @@ public class Nlp {
         //下方第二项和第三项需要替换为您的accessKeyId和accessKeySecret，获取或创建方式详见文档《快速入门》
         DefaultProfile defaultProfile = DefaultProfile.getProfile(
                 "cn-hangzhou",
-                "LTAI5tR331r37uq9taNJWs1y",
-                "qawPZddKsUEz87kqrrb1ejpm6yQAi6");
+
+                "LTAI5tPkCWG6cDG9WF2U5D7z",
+
+                "X2VFC0oNf07yN4X2abVc9wHJr5N4zR");
         IAcsClient client = new DefaultAcsClient(defaultProfile);
         //构造请求参数，其中GetPosChEcom是算法的actionName, 请查找对应的《API基础信息参考》文档并替换为您需要的算法的ActionName，示例详见下方文档中的：更换API请求
         GetNerChEcomRequest request = new GetNerChEcomRequest();
@@ -49,9 +51,9 @@ public class Nlp {
 
         for(Word i:result)
         {
-
-                category.add(i.getWord());
-
+if(i.getWeight()==1) {
+    category.add(i.getWord());
+}
             System.out.println(i.getWeight());
         }
         return category;
@@ -63,8 +65,10 @@ public class Nlp {
         //下方第二项和第三项需要替换为您的accessKeyId和accessKeySecret，获取或创建方式详见文档《快速入门》
         DefaultProfile defaultProfile = DefaultProfile.getProfile(
                 "cn-hangzhou",
-                "LTAI5tR331r37uq9taNJWs1y",
-                "qawPZddKsUEz87kqrrb1ejpm6yQAi6");
+
+                        "LTAI5tPkCWG6cDG9WF2U5D7z",
+
+                        "X2VFC0oNf07yN4X2abVc9wHJr5N4zR");
         IAcsClient client = new DefaultAcsClient(defaultProfile);
         //构造请求参数，其中GetPosChEcom是算法的actionName, 请查找对应的《API基础信息参考》文档并替换为您需要的算法的ActionName，示例详见下方文档中的：更换API请求
         GetCateChEcomRequest request = new GetCateChEcomRequest();
@@ -100,8 +104,10 @@ public class Nlp {
         //下方第二项和第三项需要替换为您的accessKeyId和accessKeySecret，获取或创建方式详见文档《快速入门》
         DefaultProfile defaultProfile = DefaultProfile.getProfile(
                 "cn-hangzhou",
-                "LTAI5tR331r37uq9taNJWs1y",
-                "qawPZddKsUEz87kqrrb1ejpm6yQAi6");
+
+                "LTAI5tPkCWG6cDG9WF2U5D7z",
+
+                "X2VFC0oNf07yN4X2abVc9wHJr5N4zR");
         IAcsClient client = new DefaultAcsClient(defaultProfile);
         //构造请求参数，其中GetPosChEcom是算法的actionName, 请查找对应的《API基础信息参考》文档并替换为您需要的算法的ActionName，示例详见下方文档中的：更换API请求
         GetBrandChEcomRequest request = new GetBrandChEcomRequest();
