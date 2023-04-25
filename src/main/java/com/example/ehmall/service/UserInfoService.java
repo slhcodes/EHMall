@@ -35,6 +35,23 @@ public interface UserInfoService extends IService<UserInfo> {
      * @return true 修改成功 false 修改失败
      */
     public RespBean setUsername(int id, String username);
+
+    /**
+     * 修改性别
+     * @param id
+     * @param gender
+     * @time 2023/4/25
+     * @return
+     */
+    public RespBean setGender(int id,Boolean gender);
+    /**
+     * 修改个签
+     * @param id
+     * @param signature
+     * @time 2023/4/25
+     * @return
+     */
+    public RespBean setSignature(int id,String signature);
     /**
      * 插入用户id和用户名
      * @param id
@@ -48,5 +65,9 @@ public interface UserInfoService extends IService<UserInfo> {
      * @return
      */
     public PartUserInfo getPartUserInfo(int userId);
-
+    /**
+     * 删除redis中的用户信息
+     * @param userId
+     */
+    public String deletePartUserInfo(int userId);
 }

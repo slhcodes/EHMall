@@ -2,6 +2,7 @@ package com.example.ehmall.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.example.ehmall.util.SpringContextHolder;
 import com.example.ehmall.util.TracingHelper;
 import com.example.ehmall.entity.PartUserInfo;
 import com.example.ehmall.entity.RespBean;
@@ -14,7 +15,12 @@ import io.opentracing.Span;
 import io.opentracing.Tracer;
 import io.opentracing.util.GlobalTracer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.BoundHashOperations;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+
 
 /**
  * <p>
@@ -32,6 +38,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
      */
     @Autowired
     private UserInfoMapper userInfoMapper;
+    @Autowired
+    private RedisTemplate <String, String> redisTemplate;
+
     public RespBean setImage(int userId, String imageUrl)
     {
         boolean result1=false;
@@ -51,7 +60,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         } finally {
             span.finish();
 
-        }    if(result1==true){
+        }    if(result1){
+        deletePartUserInfo(userId);
         return new RespBean(200,"成功",result1);}
     else
     { return new RespBean(200,"失败",result1);}
@@ -129,7 +139,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         } finally {
             span.finish();
 
-        }    if(result1==true){
+        }    if(result1){
+            deletePartUserInfo(id);
             return new RespBean(200,"成功",result1);}
         else
         { return new RespBean(200,"失败",result1);}
@@ -195,6 +206,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             if(curUser!=null)
             {
                 user=new PartUserInfo(curUser.getUserId(),curUser.getUsername(),curUser.getImageUrl(),curUser.getSignature());
+
             }
         } catch (Exception e) {
             TracingHelper.onError(e, span);
@@ -203,6 +215,77 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             span.finish();
         }
         return user;
+    }
+    /**
+     * 修改性别
+     * @param id
+     * @param gender
+     * @time 2023/4/25
+     * @return
+     */
+    public RespBean setGender(int id,Boolean gender){ boolean result1=false;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("用户修改用户名").withTag("controller", "setUsername").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            // 查询用户id的记录，修改记录的image_url
+            tracer.activeSpan().setTag("type", "mysql");
+            UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.eq("user_id",id).set("gender", gender);
+            int result=userInfoMapper.update(null, updateWrapper);
+            result1=(result==1);
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
 
+        }    if(result1){
+            deletePartUserInfo(id);
+            return new RespBean(200,"成功",result1);}
+        else
+        { return new RespBean(200,"失败",result1);}}
+    /**
+     * 修改个签
+     * @param id
+     * @param signature
+     * @time 2023/4/25
+     * @return
+     */
+    public RespBean setSignature(int id,String signature){ boolean result1=false;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("用户修改用户名").withTag("controller", "setUsername").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            // 查询用户id的记录，修改记录的image_url
+            tracer.activeSpan().setTag("type", "mysql");
+            UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.eq("user_id",id).set("signature", signature);
+            int result=userInfoMapper.update(null, updateWrapper);
+            result1=(result==1);
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+        }    if(result1)
+        {
+            deletePartUserInfo(id);
+            return new RespBean(200,"成功",result1);
+        }
+        else
+        { return new RespBean(200,"失败",result1);}}
+
+    /**
+     * 删除redis中用户信息
+     * @param userId 用户id
+     * @return
+     */
+    @Override
+    public String deletePartUserInfo(int userId)
+    {
+        BoundHashOperations boundHashOperations=redisTemplate.boundHashOps("UserInfo");
+        boundHashOperations.delete(String.valueOf(userId));
+        return "weq";
     }
 }

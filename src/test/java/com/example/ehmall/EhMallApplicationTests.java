@@ -24,7 +24,8 @@ class EhMallApplicationTests {
 //        System.out.println(password+"----------------");
 //        for(int i=0;i<1000;++i){
 //        System.out.println(NameUtil.getNickName());}
-        Nlp.getNlpWords("这是一段文本");
+       // Nlp.getNlpWords("这是一段文本");
+
     }
 
 

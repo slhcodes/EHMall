@@ -52,6 +52,22 @@ public class UserInfoController {
     {
         return userInfoService.setUsername(userId,username);
     }
+    @ApiOperation(value = "修改性别",notes = "修改性别,修改成功返回true，失败返回false")
+    @GetMapping("/changegender")
+    public RespBean setGender(@ApiParam(name="userId",required = true)
+                                @RequestParam int userId, @ApiParam(name="gender",required = true)
+                                @RequestParam Boolean gender)
+    {
+        return userInfoService.setGender(userId,gender);
+    }
+    @ApiOperation(value = "修改个签",notes = "修改个签,修改成功返回true，失败返回false")
+    @GetMapping("/changesignature")
+    public RespBean setSignature(@ApiParam(name="userId",required = true)
+                              @RequestParam int userId, @ApiParam(name="signature",required = true)
+                              @RequestParam String signature)
+    {
+        return userInfoService.setSignature(userId,signature);
+    }
     @ApiOperation(value = "插入用户",notes = "成功插入返回true，失败false")
     @GetMapping("/insertuser")
     public RespBean insertUserInfo(@ApiParam(name="userId",required = true)
@@ -67,6 +83,13 @@ public class UserInfoController {
                                    @RequestParam int userId)
     {
         return userInfoService.getPartUserInfo(userId);
+    }
+    @ApiOperation(value = "ces",notes = "成功返回用户实体，失败返回空")
+    @GetMapping("/test")
+    public String ceS(@ApiParam(name="userId",required = true)
+                                        @RequestParam int userId)
+    {
+        return userInfoService.deletePartUserInfo(userId);
     }
 
 

@@ -4,6 +4,7 @@ import org.redisson.Redisson;
 import org.redisson.api.RBloomFilter;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -16,7 +17,7 @@ public class RedissonBloomFilterOfPhone {
     /**
      * redis连接
      */
-    private static RedisTemplate redisTemplate = (RedisTemplate) SpringContextHolder.getBean("redisTemplate");
+    public static RedisTemplate redisTemplate = (RedisTemplate) SpringContextHolder.getBean("redisTemplate");
 //    /**
 //     * 查询电话号码是否已经注册
 //     * @param phone  电话号码
@@ -169,7 +170,6 @@ public class RedissonBloomFilterOfPhone {
         Long size=a.size();
             a.add(phone);
             return a.isMember(phone);
-
     }
 
 }
