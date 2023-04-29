@@ -27,9 +27,9 @@ public class Nlp {
         DefaultProfile defaultProfile = DefaultProfile.getProfile(
                 "cn-hangzhou",
 
-                "LTAI5tPkCWG6cDG9WF2U5D7z",
+                "LTAI5t8og5HkFtvfN4BmNA4z",
 
-                "X2VFC0oNf07yN4X2abVc9wHJr5N4zR");
+                "fSRAbWxqETdRwzhAb8rYrT0uuT7GLs");
 
 
 
@@ -69,9 +69,9 @@ if(i.getWeight()==1) {
         DefaultProfile defaultProfile = DefaultProfile.getProfile(
                 "cn-hangzhou",
 
-                        "LTAI5tPkCWG6cDG9WF2U5D7z",
+                "LTAI5t8og5HkFtvfN4BmNA4z",
 
-                        "X2VFC0oNf07yN4X2abVc9wHJr5N4zR");
+                "fSRAbWxqETdRwzhAb8rYrT0uuT7GLs");
         IAcsClient client = new DefaultAcsClient(defaultProfile);
         //构造请求参数，其中GetPosChEcom是算法的actionName, 请查找对应的《API基础信息参考》文档并替换为您需要的算法的ActionName，示例详见下方文档中的：更换API请求
         GetCateChEcomRequest request = new GetCateChEcomRequest();
@@ -108,9 +108,9 @@ if(i.getWeight()==1) {
         DefaultProfile defaultProfile = DefaultProfile.getProfile(
                 "cn-hangzhou",
 
-                "LTAI5tPkCWG6cDG9WF2U5D7z",
+                "LTAI5t8og5HkFtvfN4BmNA4z",
 
-                "X2VFC0oNf07yN4X2abVc9wHJr5N4zR");
+                "fSRAbWxqETdRwzhAb8rYrT0uuT7GLs");
         IAcsClient client = new DefaultAcsClient(defaultProfile);
         //构造请求参数，其中GetPosChEcom是算法的actionName, 请查找对应的《API基础信息参考》文档并替换为您需要的算法的ActionName，示例详见下方文档中的：更换API请求
         GetBrandChEcomRequest request = new GetBrandChEcomRequest();

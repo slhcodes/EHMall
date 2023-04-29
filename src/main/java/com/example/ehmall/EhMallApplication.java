@@ -4,6 +4,8 @@ import io.opentracing.util.GlobalTracer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.annotation.Resource;
+
 /**
  * @author 施立豪
  */
@@ -26,8 +28,9 @@ public class EhMallApplication {
                 GlobalTracer.register(config.getTracer());
             }
         }).start();
-
         SpringApplication.run(EhMallApplication.class, args);
+
     }
+
 
 }
