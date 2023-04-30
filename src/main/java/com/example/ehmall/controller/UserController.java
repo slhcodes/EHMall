@@ -135,7 +135,8 @@ public class UserController
                 user.setState(true);
                 user.setUsername(username);
                 int result=userMapper.insert(user);
-                result1= result==1;}
+                result1= result==1;
+            }
             /**
              * 如果存在则直接返回插入成功
              */
