@@ -3,6 +3,8 @@ package com.example.ehmall.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -60,6 +62,9 @@ public class UserInfo implements Serializable {
      * 用户名
      */
     private String username;
-
+    /**
+     * 发布时间
+     */
+    private Date updated_at;
 
 }

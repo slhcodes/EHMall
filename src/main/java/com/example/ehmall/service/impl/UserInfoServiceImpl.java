@@ -20,6 +20,8 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -51,7 +53,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             // 查询用户id的记录，修改记录的image_url
             tracer.activeSpan().setTag("type", "mysql");
             UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
-            updateWrapper.eq("user_id",userId).set("image_url", imageUrl);
+            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
+            Date date = new Date(System.currentTimeMillis());
+            System.out.println(formatter.format(date));
+            updateWrapper.eq("user_id",userId).set("image_url", imageUrl).set("updated_at",formatter.format(date));
             int result=userInfoMapper.update(null, updateWrapper);
             result1=(result==1);
         } catch (Exception e) {
@@ -129,8 +134,11 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         try (Scope ignored = tracer.scopeManager().activate(span,true)) {
             // 查询用户id的记录，修改记录的image_url
             tracer.activeSpan().setTag("type", "mysql");
+            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+            Date date = new Date(System.currentTimeMillis());
+            System.out.println(formatter.format(date));
             UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
-            updateWrapper.eq("user_id",id).set("username", username);
+            updateWrapper.eq("user_id",id).set("username", username).set("updated_at",formatter.format(date));
             int result=userInfoMapper.update(null, updateWrapper);
             result1=(result==1);
         } catch (Exception e) {
@@ -161,6 +169,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         try (Scope ignored = tracer.scopeManager().activate(span,true)) {
             tracer.activeSpan().setTag("type", "mysql");
             UserInfo user = new UserInfo();
+            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+            Date date = new Date(System.currentTimeMillis());
+
+            user.setUpdated_at(date);
             user.setUserId(id);
             user.setUsername(userName);
             int result=userInfoMapper.insert(user);
@@ -231,7 +243,12 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             // 查询用户id的记录，修改记录的image_url
             tracer.activeSpan().setTag("type", "mysql");
             UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
-            updateWrapper.eq("user_id",id).set("gender", gender);
+            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+            Date date = new Date(System.currentTimeMillis());
+            System.out.println(formatter.format(date));
+
+
+            updateWrapper.eq("user_id",id).set("gender", gender) .set("updated_at",formatter.format(date));
             int result=userInfoMapper.update(null, updateWrapper);
             result1=(result==1);
         } catch (Exception e) {
@@ -260,7 +277,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             // 查询用户id的记录，修改记录的image_url
             tracer.activeSpan().setTag("type", "mysql");
             UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
-            updateWrapper.eq("user_id",id).set("signature", signature);
+            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+            Date date = new Date(System.currentTimeMillis());
+            System.out.println(formatter.format(date));
+            updateWrapper.eq("user_id",id).set("signature", signature)  .set("updated_at",formatter.format(date));;
             int result=userInfoMapper.update(null, updateWrapper);
             result1=(result==1);
         } catch (Exception e) {
