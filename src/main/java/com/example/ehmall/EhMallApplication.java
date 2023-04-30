@@ -13,6 +13,8 @@ import javax.annotation.Resource;
 public class EhMallApplication {
 
     public static void main(String[] args) {
+        System.setProperty("es.set.netty.runtime.available.processors", "false");
+
 /**
  * 链路追踪
  */

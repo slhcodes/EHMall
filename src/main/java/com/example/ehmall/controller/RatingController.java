@@ -5,6 +5,7 @@ import com.example.ehmall.entity.Comment;
 import com.example.ehmall.entity.Rating;
 import com.example.ehmall.entity.RespBean;
 import com.example.ehmall.service.impl.RatingServiceImpl;
+import com.example.ehmall.util.FuzzSearch;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
 
 /**
  * <p>
@@ -32,6 +35,10 @@ public class RatingController {
     {
         return ratingService.insertRating(rating);
     }
-
+    @ApiOperation(value = "aaa",notes = "成功返回true，失败返回false")
+    @PostMapping("/aaa")
+    public RespBean test() throws IOException {
+        return new RespBean(200,"成功",FuzzSearch.getUser());
+    }
 }
 

@@ -20,6 +20,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+<version>2.5.6</version>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
@@ -38,6 +39,11 @@
             <version>1.2.5</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>7.8.0</version>
+        </dependency>
 
         <dependency>
             <groupId>com.aliyun</groupId>
@@ -164,12 +170,7 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.4.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>demo</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
+
 
     </dependencies>
 
