@@ -65,7 +65,7 @@ public class FuzzSearch {
         searchSourceBuilder.query(queryBuilder);
         searchRequest.source(searchSourceBuilder);
         SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
-        return getSC(response,"user_id");
+        return getSC1(response,"user_id");
 
     }
     /**
@@ -103,7 +103,7 @@ public class FuzzSearch {
             }
         for (SearchHit hit : sr.getHits()) {
                     int id = Integer.parseInt(hit.getSourceAsMap().get(id1).toString());
-res.add(id);
+                    res.add(id);
 //            if (!source.isEmpty()) {
 //                for (SearchHit hit : sr.getHits().getHits()) {
 //                    String id = hit.getSourceAsMap().get("id").toString();
