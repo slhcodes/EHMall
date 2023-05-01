@@ -65,7 +65,7 @@ public class FuzzSearch {
         searchSourceBuilder.query(queryBuilder);
         searchRequest.source(searchSourceBuilder);
         SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
-        return getSC(response);
+        return getSC(response,"_id");
 
     }
     /**
@@ -80,14 +80,14 @@ public class FuzzSearch {
         searchSourceBuilder.query(queryBuilder);
         searchRequest.source(searchSourceBuilder);
         SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
-        return getSC(response);
+        return getSC(response,"id");
 
     }
-    public static List<Integer> getSC(SearchResponse sr) {
+    public static List<Integer> getSC(SearchResponse sr,String id1) {
 
             List<Integer> res=new ArrayList<>();
-        for (SearchHit hit : sr.getHits().getHits()) {
-                    int id = Integer.valueOf(hit.getSourceAsMap().get("_id").toString());
+        for (SearchHit hit : sr.getHits()) {
+                    int id = Integer.valueOf(hit.getSourceAsMap().get(id1).toString());
 res.add(id);
 //            if (!source.isEmpty()) {
 //                for (SearchHit hit : sr.getHits().getHits()) {
