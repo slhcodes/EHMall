@@ -45,9 +45,10 @@ public class SearchServiceImpl implements SearchService {
         {
             PartUserInfo tempUser =null;
             BoundHashOperations<String, Object, Object> boundHashOperations=redisTemplate.boundHashOps("UserInfo");
-            String user=  Objects.requireNonNull(boundHashOperations.get(String.valueOf(i))).toString();
-            if(user!=null&&!"".equals(user))
+            Object aa=boundHashOperations.get(String.valueOf(i));
+            if(aa!=null)
             {
+                String user=aa.toString();
                 tempUser = (PartUserInfo) JSON.parseObject(user,PartUserInfo.class);
                 tempUser.setId(i);
                 userInfoList.add(tempUser);
@@ -94,9 +95,11 @@ public class SearchServiceImpl implements SearchService {
              */
             Commodity tempCom =null;
             BoundHashOperations<String, Object, Object> boundHashOperations=redisTemplate.boundHashOps("Commodity");
-            String user=  Objects.requireNonNull(boundHashOperations.get(String.valueOf(i))).toString();
-            if(user!=null&&!"".equals(user))
+            Object aa=boundHashOperations.get(String.valueOf(i));
+
+            if(aa!=null)
             {
+                String user=aa.toString();
                 tempCom = (Commodity) JSON.parseObject(user,Commodity.class);
                 commodityList.add(tempCom);
             }
@@ -136,16 +139,12 @@ public class SearchServiceImpl implements SearchService {
         Span span = tracer.buildSpan("模糊搜索商品").withTag("SearchServiceImpl", " searchCommodity").start();
         try (Scope ignored = tracer.scopeManager().activate(span,true)) {
             tracer.activeSpan().setTag("type", "es+redis+mysql");
-
             for(int i:idList)
             {
                 /**
                  * 先查询redis，redis没有查询mysql，逐点查询，如果列表查询mysql效率会快些
                  */
                 Commodity tempCom =null;
-                BoundHashOperations boundHashOperations=redisTemplate.boundHashOps("Commodity");
-                String user=  boundHashOperations.get(String.valueOf(i)).toString();
-
                     LambdaQueryWrapper<Commodity> lqw = new LambdaQueryWrapper<Commodity>();
                     /**
                      * 查询到id的实体
@@ -156,8 +155,6 @@ public class SearchServiceImpl implements SearchService {
                     {
                         commodityList.add(tempCom);
                     }
-
-
             }
         } catch (Exception e) {
             TracingHelper.onError(e, span);
