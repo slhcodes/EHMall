@@ -65,7 +65,7 @@ public class FuzzSearch {
         searchSourceBuilder.query(queryBuilder);
         searchRequest.source(searchSourceBuilder);
         SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
-        return getSC(response,"_id");
+        return getSC(response,"user_id");
 
     }
     /**
@@ -81,6 +81,17 @@ public class FuzzSearch {
         searchRequest.source(searchSourceBuilder);
         SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
         return getSC(response,"id");
+
+    }
+    public static List<Integer> getCommodity1(String comName) throws IOException {
+        client=getInstence();
+        SearchRequest searchRequest = new SearchRequest("goods_index");
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        QueryBuilder queryBuilder = QueryBuilders.fuzzyQuery("description", comName);
+        searchSourceBuilder.query(queryBuilder);
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
+        return getSC1(response,"id");
 
     }
     public static List<Integer> getSC(SearchResponse sr,String id1) {
@@ -111,4 +122,32 @@ res.add(id);
 //            }
         }
         return res;
-}}
+}
+    public static List<Integer> getSC1(SearchResponse sr,String id1) {
+        List<Integer> res=new ArrayList<>();
+        if(sr==null)
+        {
+            return null;
+        }
+        for (SearchHit hit : sr.getHits().getHits()) {
+            int id = Integer.parseInt(hit.getId());
+            res.add(id);
+//            if (!source.isEmpty()) {
+//                for (SearchHit hit : sr.getHits().getHits()) {
+//                    String id = hit.getSourceAsMap().get("id").toString();
+//                    System.out.println("ID: " + id);
+//                }
+//                for(Iterator<Map.Entry<String, Object>> it =
+//                    source.entrySet().iterator(); it.hasNext();) {
+//                    Map.Entry<String, Object> entry = it.next();
+//                    a+=entry.getKey();
+//                    a+=entry.getValue();
+//                    System.out.println(entry.getKey());
+//                    if ("_id".equals(entry.getKey())) {
+//                        System.out.println("title: " + entry.getValue());
+//                    }
+//                }
+//            }
+        }
+        return res;
+    }}

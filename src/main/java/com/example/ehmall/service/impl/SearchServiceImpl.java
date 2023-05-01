@@ -126,4 +126,103 @@ public class SearchServiceImpl implements SearchService {
         }
         return commodityList;
     }
+
+    @Override
+    public List<Integer> searchCommodity1(String comName) throws IOException {
+        Tracer tracer = GlobalTracer.get();
+        List<Commodity>commodityList=new ArrayList<>();
+        List<Integer> idList= FuzzSearch.getCommodity1(comName);
+        // 创建spann
+//        Span span = tracer.buildSpan("模糊搜索商品").withTag("SearchServiceImpl", " searchCommodity").start();
+//        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+//            tracer.activeSpan().setTag("type", "es+redis+mysql");
+//
+//            for(int i:idList)
+//            {
+//                /**
+//                 * 先查询redis，redis没有查询mysql，逐点查询，如果列表查询mysql效率会快些
+//                 */
+//                Commodity tempCom =null;
+//                BoundHashOperations boundHashOperations=redisTemplate.boundHashOps("Commodity");
+//                String user=  boundHashOperations.get(String.valueOf(i)).toString();
+//                if(user!=null&&!"".equals(user))
+//                {
+//                    tempCom = (Commodity) JSON.parseObject(user,Commodity.class);
+//                    commodityList.add(tempCom);
+//                }
+//                /**
+//                 * 查询mysql
+//                 */
+//                else
+//                {
+//                    LambdaQueryWrapper<Commodity> lqw = new LambdaQueryWrapper<Commodity>();
+//                    /**
+//                     * 查询到id的实体
+//                     */
+//                    lqw.eq(Commodity::getId, i);
+//                    tempCom = commodityMapper.selectOne(lqw);
+//                    if(tempCom!=null)
+//                    {
+//                        commodityList.add(tempCom);
+//                    }
+//                }
+//
+//            }
+//        } catch (Exception e) {
+//            TracingHelper.onError(e, span);
+//            throw e;
+//        } finally {
+//            span.finish();
+//        }
+        return idList;
+    }
+    @Override
+    public List<Integer> searchCommodity2(String comName) throws IOException {
+        Tracer tracer = GlobalTracer.get();
+        List<Commodity>commodityList=new ArrayList<>();
+        List<Integer> idList= FuzzSearch.getCommodity(comName);
+        // 创建spann
+//        Span span = tracer.buildSpan("模糊搜索商品").withTag("SearchServiceImpl", " searchCommodity").start();
+//        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+//            tracer.activeSpan().setTag("type", "es+redis+mysql");
+//
+//            for(int i:idList)
+//            {
+//                /**
+//                 * 先查询redis，redis没有查询mysql，逐点查询，如果列表查询mysql效率会快些
+//                 */
+//                Commodity tempCom =null;
+//                BoundHashOperations boundHashOperations=redisTemplate.boundHashOps("Commodity");
+//                String user=  boundHashOperations.get(String.valueOf(i)).toString();
+//                if(user!=null&&!"".equals(user))
+//                {
+//                    tempCom = (Commodity) JSON.parseObject(user,Commodity.class);
+//                    commodityList.add(tempCom);
+//                }
+//                /**
+//                 * 查询mysql
+//                 */
+//                else
+//                {
+//                    LambdaQueryWrapper<Commodity> lqw = new LambdaQueryWrapper<Commodity>();
+//                    /**
+//                     * 查询到id的实体
+//                     */
+//                    lqw.eq(Commodity::getId, i);
+//                    tempCom = commodityMapper.selectOne(lqw);
+//                    if(tempCom!=null)
+//                    {
+//                        commodityList.add(tempCom);
+//                    }
+//                }
+//
+//            }
+//        } catch (Exception e) {
+//            TracingHelper.onError(e, span);
+//            throw e;
+//        } finally {
+//            span.finish();
+//        }
+        return idList;
+    }
 }
