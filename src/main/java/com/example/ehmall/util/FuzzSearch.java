@@ -1,6 +1,7 @@
 package com.example.ehmall.util;
 
 
+import io.swagger.models.auth.In;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -17,7 +18,9 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,38 +57,54 @@ public class FuzzSearch {
      * 向es集群中模糊查询
      * @return json格式的查询结果
      */
-    public static String getUser() throws IOException {
+    public static List<Integer> getUser(String userName) throws IOException {
         client=getInstence();
         SearchRequest searchRequest = new SearchRequest("username_index");
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        QueryBuilder queryBuilder = QueryBuilders.fuzzyQuery("username", "风情扬");
+        QueryBuilder queryBuilder = QueryBuilders.fuzzyQuery("username", userName);
         searchSourceBuilder.query(queryBuilder);
         searchRequest.source(searchSourceBuilder);
         SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
-        System.out.println(response);
         return getSC(response);
 
     }
-    public static String getSC(SearchResponse sr) {
+    /**
+     * 向es集群中模糊查询
+     * @return json格式的查询结果
+     */
+    public static List<Integer> getCommodity(String comName) throws IOException {
+        client=getInstence();
+        SearchRequest searchRequest = new SearchRequest("goods_index");
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        QueryBuilder queryBuilder = QueryBuilders.fuzzyQuery("description", comName);
+        searchSourceBuilder.query(queryBuilder);
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
+        return getSC(response);
 
-String a="";
-        for (SearchHit hit : sr.getHits()) {
+    }
+    public static List<Integer> getSC(SearchResponse sr) {
 
-            Map<String, Object> source = hit.getSourceAsMap();
-
-            if (!source.isEmpty()) {
-
-                for(Iterator<Map.Entry<String, Object>> it =
-                    source.entrySet().iterator(); it.hasNext();) {
-                    Map.Entry<String, Object> entry = it.next();
-                    a+=entry.getKey();
-                    a+=entry.getValue();
-                    System.out.println(entry.getKey());
-                    if ("_id".equals(entry.getKey())) {
-                        System.out.println("title: " + entry.getValue());
-                    }
-                }
-            }
+            List<Integer> res=new ArrayList<>();
+        for (SearchHit hit : sr.getHits().getHits()) {
+                    int id = Integer.valueOf(hit.getSourceAsMap().get("_id").toString());
+res.add(id);
+//            if (!source.isEmpty()) {
+//                for (SearchHit hit : sr.getHits().getHits()) {
+//                    String id = hit.getSourceAsMap().get("id").toString();
+//                    System.out.println("ID: " + id);
+//                }
+//                for(Iterator<Map.Entry<String, Object>> it =
+//                    source.entrySet().iterator(); it.hasNext();) {
+//                    Map.Entry<String, Object> entry = it.next();
+//                    a+=entry.getKey();
+//                    a+=entry.getValue();
+//                    System.out.println(entry.getKey());
+//                    if ("_id".equals(entry.getKey())) {
+//                        System.out.println("title: " + entry.getValue());
+//                    }
+//                }
+//            }
         }
-        return a;
+        return res;
 }}
