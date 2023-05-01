@@ -1,5 +1,6 @@
 package com.example.ehmall.controller;
 
+import com.example.ehmall.entity.Commodity;
 import com.example.ehmall.entity.PartUserInfo;
 import com.example.ehmall.entity.RespBean;
 import com.example.ehmall.service.impl.SearchServiceImpl;
@@ -31,9 +32,9 @@ public class SearchController {
 
     @ApiOperation(value = "查询商品",notes = "成功返回商品列表，失败返回空")
     @PostMapping("/commodity")
-    public List<PartUserInfo> commoditySearch(@ApiParam(name="commodity",required = true)
+    public List<Commodity> commoditySearch(@ApiParam(name="commodity",required = true)
                                    @RequestParam String commodity) throws IOException {
-        return searchService.searchUser(commodity);
+        return searchService.searchCommodity(commodity);
     }
 
 

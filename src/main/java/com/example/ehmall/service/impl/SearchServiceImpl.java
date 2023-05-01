@@ -67,8 +67,6 @@ public class SearchServiceImpl implements SearchService {
                     userInfoList.add(tempUser);
                 }
             }
-
-            ;
         }
     } catch (Exception e) {
         TracingHelper.onError(e, span);
@@ -83,11 +81,12 @@ public class SearchServiceImpl implements SearchService {
     public List<Commodity> searchCommodity(String comName) throws IOException {
         Tracer tracer = GlobalTracer.get();
         List<Commodity>commodityList=new ArrayList<>();
+        List<Integer> idList= FuzzSearch.getCommodity(comName);
         // 创建spann
         Span span = tracer.buildSpan("模糊搜索商品").withTag("SearchServiceImpl", " searchCommodity").start();
         try (Scope ignored = tracer.scopeManager().activate(span,true)) {
             tracer.activeSpan().setTag("type", "es+redis+mysql");
-        List<Integer> idList= FuzzSearch.getUser(comName);
+
         for(int i:idList)
         {
             /**
