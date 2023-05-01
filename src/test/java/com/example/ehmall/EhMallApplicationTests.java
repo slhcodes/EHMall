@@ -2,8 +2,10 @@ package com.example.ehmall;
 
 import com.alibaba.fastjson.JSON;
 import com.aliyuncs.exceptions.ClientException;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.ehmall.controller.NlpController;
 import com.example.ehmall.entity.Commodity;
+import com.example.ehmall.mapper.CommodityMapper;
 import com.example.ehmall.util.FuzzSearch;
 import com.example.ehmall.util.NameUtil;
 import com.example.ehmall.util.Nlp;
@@ -24,6 +26,8 @@ class EhMallApplicationTests {
     StringEncryptor encryptor;
     @Autowired
     private RedisTemplate <String, String>redisTemplate;
+    @Autowired
+    private CommodityMapper commodityMapper;
     @Test
     public void getPass() throws ClientException {
 //        String url = encryptor.encrypt("123.249.120.9");
@@ -41,12 +45,34 @@ class EhMallApplicationTests {
     public void reisGetDataTest() throws IOException, ClientException {
         System.setProperty("es.set.netty.runtime.available.processors", "false");
         BoundHashOperations<String, Object, Object> boundHashOperations=redisTemplate.boundHashOps("Commodity");
+        Commodity tempCom=new Commodity();
+        {                LambdaQueryWrapper<Commodity> lqw = new LambdaQueryWrapper<Commodity>();
+            /**
+             * 查询到id的实体
+             */
+            lqw.eq(Commodity::getId, 211);
+            tempCom = commodityMapper.selectOne(lqw);
+            if(tempCom!=null)
+            {
+
+                String userString=JSON.toJSONString(tempCom);
+                boundHashOperations.put(String.valueOf(211),userString);
+            }}
+        Object aa= boundHashOperations.get(String.valueOf(211));
+        if(aa!=null){
+            System.out.println(21312);
+        }
+    }
+    @Test
+    public void reisPutDataTest() throws IOException, ClientException {
+        System.setProperty("es.set.netty.runtime.available.processors", "false");
+        BoundHashOperations<String, Object, Object> boundHashOperations=redisTemplate.boundHashOps("Commodity");
         Object aa= boundHashOperations.get(String.valueOf(110));
         if(aa!=null){
             System.out.println(21312);
         }
-
     }
+
 
 
 }

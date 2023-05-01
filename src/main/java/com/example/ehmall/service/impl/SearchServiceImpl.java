@@ -67,6 +67,8 @@ public class SearchServiceImpl implements SearchService {
                 {
                    tempUser=new PartUserInfo(curUser.getUserId(),curUser.getUsername(),curUser.getImageUrl(),curUser.getSignature());
                     userInfoList.add(tempUser);
+                    String userString=JSON.toJSONString(tempUser);
+                    boundHashOperations.put(String.valueOf(i),userString);
                 }
             }
         }
@@ -117,6 +119,8 @@ public class SearchServiceImpl implements SearchService {
                 if(tempCom!=null)
                 {
                     commodityList.add(tempCom);
+                    String userString=JSON.toJSONString(tempCom);
+                    boundHashOperations.put(String.valueOf(i),userString);
                 }
             }
 
