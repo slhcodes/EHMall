@@ -5,6 +5,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.ehmall.controller.NlpController;
 import com.example.ehmall.entity.Commodity;
+import com.example.ehmall.entity.PartUserInfo;
 import com.example.ehmall.mapper.CommodityMapper;
 import com.example.ehmall.util.FuzzSearch;
 import com.example.ehmall.util.NameUtil;
@@ -42,7 +43,7 @@ class EhMallApplicationTests {
 
     }
     @Test
-    public void reisGetDataTest() throws IOException, ClientException {
+    public void reisGetAndPutCommodityDataTest() throws IOException, ClientException {
         System.setProperty("es.set.netty.runtime.available.processors", "false");
         BoundHashOperations<String, Object, Object> boundHashOperations=redisTemplate.boundHashOps("Commodity");
         Commodity tempCom=new Commodity();
@@ -64,12 +65,18 @@ class EhMallApplicationTests {
         }
     }
     @Test
-    public void reisPutDataTest() throws IOException, ClientException {
+    public void reisGetUserDataTest() throws IOException, ClientException {
         System.setProperty("es.set.netty.runtime.available.processors", "false");
-        BoundHashOperations<String, Object, Object> boundHashOperations=redisTemplate.boundHashOps("Commodity");
-        Object aa= boundHashOperations.get(String.valueOf(110));
+        BoundHashOperations<String, Object, Object> boundHashOperations=redisTemplate.boundHashOps("UserInfo");
+        Object aa= boundHashOperations.get(String.valueOf(20));
+        PartUserInfo tempUser=null;
         if(aa!=null){
-            System.out.println(21312);
+            System.out.println(aa);
+            tempUser = (PartUserInfo) JSON.parseObject(aa.toString(),PartUserInfo.class);
+            System.out.println(tempUser.getId());
+            System.out.println(tempUser.getUserName());
+            System.out.println(tempUser.getSignature());
+            System.out.println(tempUser.getImageUrl());
         }
     }
 

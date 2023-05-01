@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 public class PartUserInfo {
     private int id;
     private String imageUrl;
-
+    public PartUserInfo(){}
     public PartUserInfo(int id,String userName , String imageUrl, String signature) {
         this.id = id;
         this.imageUrl = imageUrl;
