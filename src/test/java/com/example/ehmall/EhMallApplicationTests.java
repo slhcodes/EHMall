@@ -38,7 +38,7 @@ class EhMallApplicationTests {
 
     }
     @Test
-    public void fuzzSearchTest() throws IOException, ClientException {
+    public void reisGetDataTest() throws IOException, ClientException {
         System.setProperty("es.set.netty.runtime.available.processors", "false");
         BoundHashOperations<String, Object, Object> boundHashOperations=redisTemplate.boundHashOps("Commodity");
         Object aa= boundHashOperations.get(String.valueOf(110));

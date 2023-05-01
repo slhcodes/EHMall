@@ -25,6 +25,5 @@ public interface SearchService {
      * @return   商品列表
      */
     public List<Commodity> searchCommodity(String comName) throws IOException;
-    public List<Integer> searchCommodity1(String comName) throws IOException;
-    public List<Integer> searchCommodity2(String comName) throws IOException;
+
 }

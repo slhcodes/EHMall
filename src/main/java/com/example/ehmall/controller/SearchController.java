@@ -36,17 +36,7 @@ public class SearchController {
                                    @RequestParam String commodity) throws IOException {
         return searchService.searchCommodity(commodity);
     }
-    @ApiOperation(value = "查询商品1",notes = "成功返回商品列表，失败返回空")
-    @PostMapping("/commodity1")
-    public List<Integer> commoditySearch1(@ApiParam(name="commodity",required = true)
-                                           @RequestParam String commodity) throws IOException {
-        return searchService.searchCommodity1(commodity);
-    }
-    @ApiOperation(value = "查询商品1",notes = "成功返回商品列表，失败返回空")
-    @PostMapping("/commodity2")
-    public List<Integer> commoditySearch2(@ApiParam(name="commodity",required = true)
-                                          @RequestParam String commodity) throws IOException {
-        return searchService.searchCommodity2(commodity);
-    }
+
+
 
 }
