@@ -86,8 +86,12 @@ public class FuzzSearch {
     public static List<Integer> getSC(SearchResponse sr,String id1) {
 
             List<Integer> res=new ArrayList<>();
+            if(sr==null)
+            {
+                return null;
+            }
         for (SearchHit hit : sr.getHits()) {
-                    int id = Integer.valueOf(hit.getSourceAsMap().get(id1).toString());
+                    int id = Integer.parseInt(hit.getSourceAsMap().get(id1).toString());
 res.add(id);
 //            if (!source.isEmpty()) {
 //                for (SearchHit hit : sr.getHits().getHits()) {
