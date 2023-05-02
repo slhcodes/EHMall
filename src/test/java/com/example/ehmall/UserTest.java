@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import static org.testng.Assert.*;
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class UserTest extends AbstractTestNGSpringContextTests {
 @BeforeClass
 public void ready()

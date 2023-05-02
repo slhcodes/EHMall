@@ -18,6 +18,7 @@ import org.testng.annotations.Test;
 import java.util.Optional;
 
 import static org.testng.Assert.*;
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserInfoTest extends AbstractTestNGSpringContextTests{
     @Autowired

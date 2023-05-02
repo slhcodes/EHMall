@@ -29,7 +29,7 @@ import static org.testng.Assert.*;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Optional;
-
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class BloomFilterTest extends AbstractTestNGSpringContextTests {
     @Autowired

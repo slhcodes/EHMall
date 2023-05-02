@@ -27,7 +27,7 @@ import static org.testng.Assert.*;
 
 import java.io.IOException;
 import java.util.Date;
-
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class CommentTest extends AbstractTestNGSpringContextTests {
     @Autowired
