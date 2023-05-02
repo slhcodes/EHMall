@@ -42,6 +42,7 @@ public class UserController
      */
     @Autowired
     private UserMapper userMapper;
+
     @ApiOperation(value = "手机号登录添加用户",notes = "添加用户")
     @GetMapping("/insertuserbyphone")
     public boolean insertUserByPhone(@ApiParam(name="phone",required = true)

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Selenium-测试脚本集" parallel="none">
+    <before></before>
+    <test name="Selenium+TestNG">
+        <classes>
+            <!-- 执行中的所有@test方法 -->
+            <class name="com.example.ehmall.BloomFilterTest" />
+        </classes>
+    </test>
+</suite>

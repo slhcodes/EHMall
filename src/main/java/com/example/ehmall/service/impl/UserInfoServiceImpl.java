@@ -175,6 +175,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             user.setUpdated_at(date);
             user.setUserId(id);
             user.setUsername(userName);
+            user.setImageUrl("IMG_4814.JPG");
             int result=userInfoMapper.insert(user);
             result1= result==1;
         } catch (Exception e) {
