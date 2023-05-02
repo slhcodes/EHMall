@@ -2,6 +2,7 @@ package com.example.ehmall.config;
 
 
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,5 +20,8 @@ import org.springframework.context.annotation.Configuration;
             interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
             return interceptor;
         }
+
+
+
     }
 

@@ -3,13 +3,22 @@ package com.example.ehmall;
 import com.alibaba.fastjson.JSON;
 import com.aliyuncs.exceptions.ClientException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.ehmall.controller.CommodityController;
 import com.example.ehmall.controller.NlpController;
 import com.example.ehmall.entity.Commodity;
 import com.example.ehmall.entity.PartUserInfo;
+import com.example.ehmall.entity.User;
 import com.example.ehmall.mapper.CommodityMapper;
+import com.example.ehmall.mapper.UserMapper;
+import com.example.ehmall.service.impl.CommodityServiceImpl;
 import com.example.ehmall.util.FuzzSearch;
 import com.example.ehmall.util.NameUtil;
 import com.example.ehmall.util.Nlp;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +27,8 @@ import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @SpringBootTest
@@ -29,6 +40,41 @@ class EhMallApplicationTests {
     private RedisTemplate <String, String>redisTemplate;
     @Autowired
     private CommodityMapper commodityMapper;
+
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    CommodityServiceImpl commodityService;
+@Test
+public void focusComTest()
+{
+
+    List<Integer> a=new ArrayList<>();
+    for(int i=21;i<30;++i)
+    {
+        a.add(i);
+    }
+    a.add(4);a.add(5);a.add(23);
+//    System.out.println("size"+commodityService.getFocusedCommodity(a,1).size());
+}
+    @Test
+    public void selectPageTest(){
+        LambdaQueryWrapper<User> userLambdaQueryWrapper = Wrappers.lambdaQuery();
+        userLambdaQueryWrapper.like(User::getUsername , "的");
+        PageHelper.startPage(1, 10);
+        List<User> list = userMapper.selectList(userLambdaQueryWrapper);
+//用PageInfo对结果进行包装
+        PageInfo page = new PageInfo(list);
+        System.out.println(page.getPageNum());
+        System.out.println(page.getPages());
+//        Page<User> userPage = new Page<>(1 , 10);
+
+//        System.out.println(userPage.getPages());
+//        System.out.println(userPage.getTotal());
+//        System.out.println("总页数： "+userIPage.getPages());
+//        System.out.println("总记录数： "+userIPage.getTotal());
+//        userIPage.getRecords().forEach(System.out::println);
+    }
     @Test
     public void getPass() throws ClientException {
 //        String url = encryptor.encrypt("123.249.120.9");

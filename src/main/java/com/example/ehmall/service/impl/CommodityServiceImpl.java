@@ -1,20 +1,24 @@
 package com.example.ehmall.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.example.ehmall.entity.Commodity;
-import com.example.ehmall.entity.PartUserInfo;
-import com.example.ehmall.entity.RespBean;
-import com.example.ehmall.entity.UserInfo;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.example.ehmall.entity.*;
 import com.example.ehmall.mapper.CommodityMapper;
 import com.example.ehmall.service.CommodityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.ehmall.util.TracingHelper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.opentracing.Scope;
 import io.opentracing.Span;
 import io.opentracing.Tracer;
 import io.opentracing.util.GlobalTracer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -81,5 +85,24 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         }   if (id!=0){
             return new RespBean(200, "成功", id);}
         else {return new RespBean(201, "失败",0);}
+    }
+
+    @Override
+    public List<Commodity> getFocusedCommodity(int[] users, int pageIndex) {
+            List<Commodity> finalList = new ArrayList<>();
+            PageHelper.startPage(pageIndex, 10);
+        QueryWrapper<Commodity> queryWrapper = new QueryWrapper<>();
+
+            for(int i:users)
+            {
+                queryWrapper.eq("user_id", i).or();
+            }
+             finalList = commodityMapper.selectList(queryWrapper);
+
+            PageInfo<Commodity> page = new PageInfo<Commodity>(finalList);
+
+            System.out.println(page.getPageNum());
+            System.out.println(page.getPages());
+            return page.getList();
     }
 }

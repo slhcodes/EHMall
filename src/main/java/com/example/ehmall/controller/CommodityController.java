@@ -2,6 +2,7 @@ package com.example.ehmall.controller;
 
 
 import com.example.ehmall.entity.Commodity;
+import com.example.ehmall.entity.GetFocusRequest;
 import com.example.ehmall.entity.RespBean;
 import com.example.ehmall.mapper.UserInfoMapper;
 import com.example.ehmall.service.CommodityService;
@@ -10,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags="商品接口")
 @RequestMapping("/commodity")
 public class CommodityController {
+
     @Autowired
     private CommodityService commodityService;
     @ApiOperation(value = "插入商品",notes = "成功插入商品id 状态码200，失败id 0，状态码201")
@@ -38,6 +42,13 @@ public RespBean insertCommodity(@RequestBody Commodity commodity)
     @RequestParam int id)
     {
         return commodityService.getCommodity(id);
+    }
+    @PostMapping("/getfocus")
+    @ApiOperation(value = "获取关注用户发布的商品",notes = "返回商品列表，失败null")
+
+    public List<Commodity> getFocusCommodities(@RequestBody GetFocusRequest getFocusRequest)
+    {
+        return commodityService.getFocusedCommodity(getFocusRequest.getUsers(), getFocusRequest.getPage());
     }
 }
 
