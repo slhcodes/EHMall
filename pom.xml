@@ -242,11 +242,11 @@
                         </property>
                     </properties>
                     <!-- 使allure-results在target文件夹下（很重要） -->
-
+                    <workingDirectory>target/</workingDirectory>
                     <systemProperties>
                         <property>
                             <name>allure.results.directory</name>
-                            <value>./target/allure-results</value>
+                            <value>target/allure-results1</value>
                         </property>
                     </systemProperties>
                 </configuration>
