@@ -26,7 +26,7 @@ import static org.testng.Assert.*;
 
 import java.io.IOException;
 
-@SpringBootTest
+@SpringBootTest(classes = {EhMallApplication.class})
 public class SearchTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private SearchController searchController;

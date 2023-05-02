@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = {EhMallApplication.class})
 class EhMallApplicationTests {
 
     @Autowired

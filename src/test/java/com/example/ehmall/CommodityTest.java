@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Optional;
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = {EhMallApplication.class})
 public class CommodityTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private CommodityController commodityController;

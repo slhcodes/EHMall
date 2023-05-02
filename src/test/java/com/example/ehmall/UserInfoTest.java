@@ -19,7 +19,7 @@ import java.util.Optional;
 
 import static org.testng.Assert.*;
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = {EhMallApplication.class})
 public class UserInfoTest extends AbstractTestNGSpringContextTests{
     @Autowired
     private UserInfoController userInfoController;
