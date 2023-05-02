@@ -1,11 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Selenium">
     <test name="My Test">
-        <classes>
-            <class name="com.example.ehmall.RatingTest"/>
-        </classes>
+        <packages>
+            <package name="com.example.ehmall" />
+        </packages>
     </test>
-    <packages>
-        <package name="com.example.ehmall" />
-    </packages>
+
 </suite>
