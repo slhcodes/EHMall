@@ -3,12 +3,14 @@ package com.example.ehmall;
 import io.opentracing.util.GlobalTracer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.annotation.Resource;
 
 /**
  * @author 施立豪
  */
+@EnableScheduling
 @SpringBootApplication
 public class EhMallApplication {
 
