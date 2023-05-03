@@ -24,7 +24,7 @@ public class NoticeConfig {
         private UserMapper userMapper;
         @Resource
         private PricingController pricingController;
-        @Scheduled(cron = "0 * * * * *") // 每十分钟执行一次
+        @Scheduled(cron = "0 */10 * * * *") // 每十分钟执行一次
         public void execute() {
             LocalDateTime now = LocalDateTime.now();
             System.out.println(now);
@@ -36,7 +36,7 @@ public class NoticeConfig {
             System.out.println(endTime);
             List<Commerce> result = commerceMapper.selectByTimeRange(startTime, endTime);
             System.out.println("search  -------");
-            SendMessageUtil.sendPostRequest("18233075330");
+//            SendMessageUtil.sendPostRequest("18233075330");
             for(Commerce i:result)
             {
 
