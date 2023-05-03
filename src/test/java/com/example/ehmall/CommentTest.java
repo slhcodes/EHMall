@@ -55,6 +55,8 @@ public class CommentTest extends AbstractTestNGSpringContextTests {
         a.setUserid(5);
         a.setContent("闲置可以便宜点吗？");
         assertEquals(commentService.insertComment(a).getMessage(),"成功");
+        a.setUserid(1);
+        assertEquals(commentService.insertComment(a).getMessage(),"成功");
     }
     /**
      * 查询评论接口

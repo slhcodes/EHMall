@@ -51,9 +51,10 @@ public class CommodityTest extends AbstractTestNGSpringContextTests {
     @Test
     public void getTest()
     {
-Integer temp=130;
+        Integer temp=130;
         Commodity a=commodityController.getCommodity(130);
         assertEquals(a.getId(),temp);
+        assertNull(commodityController.getCommodity(1));
     }
     /**
      * 获取关注商品列表接口
@@ -64,6 +65,8 @@ Integer temp=130;
         GetFocusRequest getFocusRequest=new GetFocusRequest();
         getFocusRequest.setPage(1);
         getFocusRequest.setUsers(new int []{4,5,6});
+        assertNotNull(commodityController.getFocusCommodities(getFocusRequest));
+        getFocusRequest.setPage(0);
         assertNotNull(commodityController.getFocusCommodities(getFocusRequest));
     }
 

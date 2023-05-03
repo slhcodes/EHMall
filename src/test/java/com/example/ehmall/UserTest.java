@@ -60,6 +60,8 @@ public void ready()
     public void banUserPhoneTest(){
         String phone="13785957212";
         assertTrue(userController.banUserByPhone(phone));
+        String phone1="121313785957212";
+        assertTrue(userController.banUserByPhone(phone));
     }
 
     /**
@@ -69,6 +71,8 @@ public void ready()
     public void banUserQqeTest(){
         String qq="137859572123213123434";
         assertTrue(userController.banUserByQq(qq));
+        String qq1="1378595721232131234341111";
+        assertFalse(userController.banUserByQq(qq1));
     }
     /**
      * 根据手机获取id
@@ -77,8 +81,15 @@ public void ready()
     public void getIdByPhoneTest(){
         String phone="18233075330";
         String phone1="13756408658";
+        String phone2="qeasdwa";
+        String phone3="qeasdwa21312";
+
         assertEquals(userController.getIdByPhone(phone),5);
         assertEquals(userController.getIdByPhone(phone1),6);
+        assertEquals(userController.getIdByPhone(phone2),-1);
+        assertEquals(userController.getIdByPhone(phone3),-1);
+
+
     }
     /**
      * 根据qq获取id
@@ -87,8 +98,11 @@ public void ready()
     public void getIdByQqTest(){
         String qq="112231";
         String qq1="854464470FE55A0BEA1BA33A0258B02D";
+        String qq2="154464470FE55A0BEA1BA33A0258B02D";
+        String qq3="";
         assertEquals(userController.getIdByQq(qq),15);
         assertEquals(userController.getIdByQq(qq1),18);
+        assertEquals(userController.getIdByQq(qq3),-1);
     }
 }
 

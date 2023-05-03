@@ -44,6 +44,9 @@ public class UserInfoTest extends AbstractTestNGSpringContextTests{
         String newUrl="IMG_4814.JPG";
         System.out.println(userInfoController.setImage(id,newUrl));
         assertEquals(userInfoController.setImage(id,newUrl).getMessage(),"成功");
+        int id1=0;
+        assertEquals(userInfoController.setImage(id1,newUrl).getMessage(),"失败");
+
     }
     /**
      * 更改性别接口
@@ -54,6 +57,9 @@ public class UserInfoTest extends AbstractTestNGSpringContextTests{
         int id=5;
         boolean gender=true;
         assertEquals( userInfoController.setGender(id,gender).getMessage(),"成功");
+        int id1=0;
+        assertEquals( userInfoController.setGender(id1,gender).getMessage(),"失败");
+
 
     }
     /**
@@ -65,7 +71,8 @@ public class UserInfoTest extends AbstractTestNGSpringContextTests{
         int id=5;
         String sig="我是一个闲置回收爱好者";
         assertEquals( userInfoController.setSignature(id,sig).getMessage(),"成功");
-
+        int id1=0;
+        assertEquals( userInfoController.setSignature(id1,sig).getMessage(),"失败");
     }
     /**
      * 获取资料接口
@@ -74,8 +81,10 @@ public class UserInfoTest extends AbstractTestNGSpringContextTests{
     public void getInfoTest()
     {
         int id=5;
-
         assertEquals( userInfoController.getPartUserInfo(id).getUserName(),"shilihao");
+        int id1=0;
+        assertNull( userInfoController.getPartUserInfo(id1));
+
     }
 
 }

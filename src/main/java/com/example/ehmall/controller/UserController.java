@@ -245,7 +245,9 @@ public class UserController
             LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<User>();
             lqw.eq(User::getPhone, phone);
             User loginUser = userMapper.selectOne(lqw);
-            result1=loginUser.getId();
+            if(loginUser!=null)
+            {
+            result1=loginUser.getId();}
         } catch (Exception e) {
             TracingHelper.onError(e, span);
             throw e;
@@ -281,7 +283,8 @@ public class UserController
             LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<User>();
             lqw.eq(User::getQq, qq);
             User loginUser = userMapper.selectOne(lqw);
-            result1=loginUser.getId();
+            if(loginUser!=null){
+            result1=loginUser.getId();}
         } catch (Exception e) {
             TracingHelper.onError(e, span);
             throw e;

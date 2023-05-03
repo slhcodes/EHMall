@@ -55,6 +55,8 @@ public class PricingTest extends AbstractTestNGSpringContextTests {
         a.setUserid(5);
         a.setPrice(100.0);
         assertEquals(pricingController.insertPricing(a).getMessage(),"成功");
+        a.setUserid(4);
+        assertEquals(pricingController.insertPricing(a).getMessage(),"成功");
     }
 
     /**

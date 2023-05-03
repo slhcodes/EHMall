@@ -55,6 +55,8 @@ public class RatingTest extends AbstractTestNGSpringContextTests {
         a.setScore(6.0);
         a.setTimestamp(1023874934);
         assertEquals(ratingController.insertRating(a).getMessage(),"成功");
+        a.setUserid(1);
+        assertEquals(ratingController.insertRating(a).getMessage(),"成功");
     }
 
 }

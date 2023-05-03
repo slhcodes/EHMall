@@ -49,7 +49,7 @@ public class CommerceTest extends AbstractTestNGSpringContextTests {
      * 插入交易信息接口
      */
     @Test
-    public void getTest()
+    public void insertTest()
     {
 
         Commerce a=new Commerce();
@@ -57,19 +57,26 @@ public class CommerceTest extends AbstractTestNGSpringContextTests {
         a.setSellerid(80);
         a.setCommodityid(115);
         a.setPrice(100.0);
-        a.setPlace("未来图书馆门口");
         a.setTime(new Date());
         a.setState(0);
+        assertEquals(commerceController.insertPricing(a).getMessage(),"成功");
+        a.setPlace("未来图书馆门口");
         assertEquals(commerceController.insertPricing(a).getMessage(),"成功");
     }
     /**
      * 更新交易状态接口
      */
     @Test
-    public void getFocusComsTest()
+    public void updateStateTest()
     {
         assertEquals(commerceController.getPricing(1,1).getMessage(),"成功");
-
+        assertEquals(commerceController.getPricing(1,2).getMessage(),"成功");
+        assertEquals(commerceController.getPricing(1,3).getMessage(),"成功");
+        assertEquals(commerceController.getPricing(1,4).getMessage(),"成功");
+        assertEquals(commerceController.getPricing(1,0).getMessage(),"成功");
+        assertEquals(commerceController.getPricing(11,1).getMessage(),"成功");
+        assertEquals(commerceController.getPricing(11,3).getMessage(),"成功");
+        assertEquals(commerceController.getPricing(11,5).getMessage(),"成功");
     }
 
 }
