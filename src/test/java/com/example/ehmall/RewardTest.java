@@ -42,7 +42,7 @@ public class RewardTest extends AbstractTestNGSpringContextTests {
         Integer c=5;
         a.setUserid(c);
         a.setDescription("想要一个保温水杯，最好是新的");
-
+        a.setLocation("未来城校区");
         Date w=new Date(System.currentTimeMillis());
         a.setTime(w);
         a.setState(1);

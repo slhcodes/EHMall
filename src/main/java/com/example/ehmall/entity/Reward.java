@@ -27,12 +27,13 @@ public class Reward implements Serializable {
 
     private Integer userid;
 
+
     private Date time;
 
     private Integer state;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-
+    private String location;
 
 }
