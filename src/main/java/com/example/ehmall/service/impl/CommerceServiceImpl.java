@@ -3,6 +3,7 @@ package com.example.ehmall.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.ehmall.entity.Commerce;
+import com.example.ehmall.entity.Commodity;
 import com.example.ehmall.entity.Rating;
 import com.example.ehmall.entity.RespBean;
 import com.example.ehmall.mapper.CommerceMapper;
@@ -74,5 +75,34 @@ public class CommerceServiceImpl extends ServiceImpl<CommerceMapper, Commerce> i
         else{
             return new RespBean(201,"失败",false);
         }
+    }
+    public Commerce getCommerce(int commodityid,int sellerid,int buyerid)
+    {
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("更新交易状态").withTag("CommerceServiceImpl", "updateState").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            // 业务逻辑写这里
+            tracer.activeSpan().setTag("type", "mysql");
+            LambdaQueryWrapper<Commerce> lqw = new LambdaQueryWrapper<Commerce>();
+            /**
+             * 查询到id的实体
+             */
+            lqw.eq(Commerce::getCommodityid, commodityid)
+                    .eq(Commerce::getSellerid,sellerid)
+                    .eq(Commerce::getBuyerid,buyerid);
+            Commerce curCom = commerceMapper.selectOne(lqw);
+            if(curCom!=null)
+            {
+                return curCom;
+            }
+
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+        }
+        return null;
     }
 }

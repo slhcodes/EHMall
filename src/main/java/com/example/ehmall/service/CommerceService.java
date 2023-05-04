@@ -23,4 +23,8 @@ public interface CommerceService extends IService<Commerce> {
      * 更新交易状态
      */
     public RespBean updateState(int commerceId,int state);
+    /**
+     * 查询交易状态
+     */
+    public Commerce getCommerce(int commodityid,int sellerid,int buyerid);
 }

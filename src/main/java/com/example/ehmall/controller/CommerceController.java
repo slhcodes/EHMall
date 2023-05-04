@@ -34,6 +34,16 @@ public class CommerceController {
         return commerceService.updateState(commerceid,state);
     }
 
+    @ApiOperation(value = "获取交易",notes = "成功返回交易实体，失败返回false;state:0关闭，1等待付款，2已付款，等待交易，3完成")
+    @GetMapping("/get")
+    public Commerce getCommerce(@ApiParam(name="commodityid",required = true)
+                               @RequestParam int commodityid,@ApiParam(name="sellerid",required = true)
+                               @RequestParam int sellerid,@ApiParam(name="buyerid",required = true)
+    @RequestParam int buyerid)
+    {
+        return commerceService.getCommerce(commodityid,sellerid,buyerid);
+    }
+
     @ApiOperation(value = "插入交易",notes = "成功返回true，失败返回false")
     @PostMapping("/insert")
     public RespBean insertPricing(@RequestBody Commerce

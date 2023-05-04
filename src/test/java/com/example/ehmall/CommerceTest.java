@@ -78,5 +78,14 @@ public class CommerceTest extends AbstractTestNGSpringContextTests {
         assertEquals(commerceController.getPricing(11,3).getMessage(),"成功");
         assertEquals(commerceController.getPricing(11,5).getMessage(),"成功");
     }
+    /**
+     * 获取交易接口
+     */
+    @Test
+    public void getCommerceTest()
+    {
+        commerceController.getCommerce(132,5,6);
+
+    }
 
 }
