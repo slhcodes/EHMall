@@ -36,7 +36,6 @@ public class NoticeConfig {
             System.out.println(endTime);
             List<Commerce> result = commerceMapper.selectByTimeRange(startTime, endTime);
             System.out.println("search  -------");
-            SendMessageUtil.sendPostRequest("18233075330");
             for(Commerce i:result)
             {
 
@@ -52,10 +51,12 @@ public class NoticeConfig {
                 String buyerPhone=buyUser.getPhone();
                 if(sellerPhone!=null&&!"".equals(sellerPhone)&&sellerPhone.length()==11)
                 {
+                    SendMessageUtil.sendPostRequest(sellerPhone);
 
                 }
                 if(buyerPhone!=null&&!"".equals(buyerPhone)&&buyerPhone.length()==11)
                 {
+                    SendMessageUtil.sendPostRequest(buyerPhone);
 
                 }
                 Pricing a=new Pricing();
