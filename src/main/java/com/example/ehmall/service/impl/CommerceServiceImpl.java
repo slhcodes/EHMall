@@ -60,9 +60,8 @@ public class CommerceServiceImpl extends ServiceImpl<CommerceMapper, Commerce> i
         try (Scope ignored = tracer.scopeManager().activate(span,true)) {
             // 业务逻辑写这里
             tracer.activeSpan().setTag("type", "mysql");
-
                 UpdateWrapper<Commerce> updateWrapper = new UpdateWrapper<>();
-                updateWrapper.eq("commerceid",commerceId).set("state",state);
+                updateWrapper.eq("commerceid",commerceId).setSql("state=state+1");
                 int result=commerceMapper.update(null, updateWrapper);
                 result1=result==1;
         } catch (Exception e) {
@@ -71,9 +70,9 @@ public class CommerceServiceImpl extends ServiceImpl<CommerceMapper, Commerce> i
         } finally {
             span.finish();
         }
-        if(result1){return new RespBean(200,"成功",true);}
+        if(result1){return new RespBean(200,"成功",state+1);}
         else{
-            return new RespBean(201,"失败",false);
+            return new RespBean(201,"失败",0);
         }
     }
     public Commerce getCommerce(int commodityid,int sellerid,int buyerid)
