@@ -35,6 +35,13 @@ public class EvaluationController {
     {
         return evaluationService.insertCommodityId(evaluation);
     }
+
+    @ApiOperation(value = "更新评价",notes = "成功返回true，失败返回false")
+    @PostMapping("/update")
+    public RespBean updateEvaluation(@RequestBody Evaluation evaluation)
+    {
+        return evaluationService.updateEvaluation(evaluation);
+    }
     @ApiOperation(value = "获取评价",notes = "成功返回评论实体列表，失败返回null")
 
     @GetMapping("/get")

@@ -26,5 +26,8 @@ public interface EvaluationService extends IService<Evaluation> {
      * 获取未评价
      */
     public List<EvalutionInfo> getEvaluation(int userid);
-
+    /**
+     * 更新评价
+     */
+    public RespBean updateEvaluation(Evaluation evaluation);
 }

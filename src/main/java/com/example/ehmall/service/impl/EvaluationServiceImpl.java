@@ -1,6 +1,7 @@
 package com.example.ehmall.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.ehmall.entity.*;
 import com.example.ehmall.mapper.CommerceMapper;
 import com.example.ehmall.mapper.CommodityMapper;
@@ -15,6 +16,8 @@ import io.opentracing.util.GlobalTracer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,5 +116,27 @@ public class EvaluationServiceImpl extends ServiceImpl<EvaluationMapper, Evaluat
         }
         return new ArrayList<>();
     }
+
+    @Override
+    public RespBean updateEvaluation(Evaluation evaluation) {
+        int id=0;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("插入评价表").withTag("EvaluationServiceImpl", "insertComment").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            tracer.activeSpan().setTag("type", "mysql");
+            UpdateWrapper<Evaluation> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.eq("userid",evaluation.getUserid()).eq("commerid", evaluation.getCommerid());
+            int result=evaluationMapper.update(evaluation, updateWrapper);
+            if(result==1){ return new RespBean(200, "成功",true);}
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+        }
+        return new RespBean(201, "失败",false);
+
     }
+}
 
