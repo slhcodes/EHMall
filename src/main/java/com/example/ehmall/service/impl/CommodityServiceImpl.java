@@ -105,4 +105,14 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
             System.out.println(page.getPages());
             return page.getList();
     }
+
+    @Override
+    public List<Commodity> getFocusedCommodity(int userid) {
+        List<Commodity> finalList = new ArrayList<>();
+        LambdaQueryWrapper<Commodity> lqw=new LambdaQueryWrapper<>();
+        lqw.eq(Commodity::getUserId,userid);
+        finalList=commodityMapper.selectList(lqw);
+        return finalList;
+    }
+
 }

@@ -69,5 +69,10 @@ public class CommodityTest extends AbstractTestNGSpringContextTests {
         getFocusRequest.setPage(0);
         assertNotNull(commodityController.getFocusCommodities(getFocusRequest));
     }
+    @Test
+    public void getMyPost()
+    {
+        commodityController.getMyRewards(5);
+    }
 
 }

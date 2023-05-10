@@ -35,4 +35,11 @@ public interface CommodityService extends IService<Commodity> {
      */
     public List<Commodity> getFocusedCommodity(int[] users, int page);
 
+    /**
+     * 获取我的商品
+     * @param user
+     * @return
+     */
+    public List<Commodity> getFocusedCommodity(int userid);
+
 }

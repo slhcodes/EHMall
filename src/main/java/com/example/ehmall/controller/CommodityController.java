@@ -4,6 +4,7 @@ package com.example.ehmall.controller;
 import com.example.ehmall.entity.Commodity;
 import com.example.ehmall.entity.GetFocusRequest;
 import com.example.ehmall.entity.RespBean;
+import com.example.ehmall.entity.Reward;
 import com.example.ehmall.mapper.UserInfoMapper;
 import com.example.ehmall.service.CommodityService;
 import io.swagger.annotations.Api;
@@ -49,6 +50,14 @@ public RespBean insertCommodity(@RequestBody Commodity commodity)
     public List<Commodity> getFocusCommodities(@RequestBody GetFocusRequest getFocusRequest)
     {
         return commodityService.getFocusedCommodity(getFocusRequest.getUsers(), getFocusRequest.getPage());
+    }
+
+    @ApiOperation(value = "获取我的发布",notes = "成功：发布列表 状态码200，失败id 0，状态码201  page为第几页 num为一页几条")
+    @GetMapping("/getmy")
+    public List<Commodity> getMyRewards(@ApiParam(name="userid",required = true)
+                                     @RequestParam int userid)
+    {
+        return commodityService.getFocusedCommodity(userid);
     }
 }
 
