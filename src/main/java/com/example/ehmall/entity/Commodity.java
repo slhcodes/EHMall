@@ -23,7 +23,7 @@ public class Commodity implements Serializable {
     /**
      * 商品id
      */
-    @TableId(value = "id", type = IdType.INPUT)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 用户id
