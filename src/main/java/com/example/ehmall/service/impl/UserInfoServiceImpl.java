@@ -219,7 +219,6 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             if(curUser!=null)
             {
                 user=new PartUserInfo(curUser.getUserId(),curUser.getImageUrl(),curUser.getSelfIntroduction(),curUser.getAge(),curUser.getGender(),curUser.getSignature(),curUser.getUsername(),curUser.getInterest());
-
             }
         } catch (Exception e) {
             TracingHelper.onError(e, span);
@@ -247,8 +246,6 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
             Date date = new Date(System.currentTimeMillis());
             System.out.println(formatter.format(date));
-
-
             updateWrapper.eq("user_id",id).set("gender", gender) .set("updated_at",formatter.format(date));
             int result=userInfoMapper.update(null, updateWrapper);
             result1=(result==1);
@@ -263,6 +260,94 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             return new RespBean(200,"成功",result1);}
         else
         { return new RespBean(200,"失败",result1);}}
+
+    @Override
+    public RespBean setAge(int id, int age) {
+        boolean result1=false;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("用户修改用户名").withTag("controller", "setUsername").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            // 查询用户id的记录，修改记录的image_url
+            tracer.activeSpan().setTag("type", "mysql");
+            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+            Date date = new Date(System.currentTimeMillis());
+            System.out.println(formatter.format(date));
+            UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.eq("user_id",id).set("age", age).set("updated_at",formatter.format(date));
+            int result=userInfoMapper.update(null, updateWrapper);
+            result1=(result==1);
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+
+        }    if(result1){
+            deletePartUserInfo(id);
+            return new RespBean(200,"成功",result1);}
+        else
+        { return new RespBean(200,"失败",result1);}
+    }
+
+    @Override
+    public RespBean setInterest(int id, String interest) {
+        boolean result1=false;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("用户修改用户名").withTag("controller", "setUsername").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            // 查询用户id的记录，修改记录的image_url
+            tracer.activeSpan().setTag("type", "mysql");
+            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+            Date date = new Date(System.currentTimeMillis());
+            System.out.println(formatter.format(date));
+            UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.eq("user_id",id).set("interest", interest).set("updated_at",formatter.format(date));
+            int result=userInfoMapper.update(null, updateWrapper);
+            result1=(result==1);
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+
+        }    if(result1){
+            deletePartUserInfo(id);
+            return new RespBean(200,"成功",result1);}
+        else
+        { return new RespBean(200,"失败",result1);}
+    }
+
+    @Override
+    public RespBean setIntro(int id, String introduction) {
+        boolean result1=false;
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("用户修改用户名").withTag("controller", "setUsername").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            // 查询用户id的记录，修改记录的image_url
+            tracer.activeSpan().setTag("type", "mysql");
+            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+            Date date = new Date(System.currentTimeMillis());
+            System.out.println(formatter.format(date));
+            UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.eq("user_id",id).set("self_introduction", introduction).set("updated_at",formatter.format(date));
+            int result=userInfoMapper.update(null, updateWrapper);
+            result1=(result==1);
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+
+        }    if(result1){
+            deletePartUserInfo(id);
+            return new RespBean(200,"成功",result1);}
+        else
+        { return new RespBean(200,"失败",result1);}
+    }
+
     /**
      * 修改个签
      * @param id

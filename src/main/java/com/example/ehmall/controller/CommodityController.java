@@ -52,6 +52,14 @@ public RespBean insertCommodity(@RequestBody Commodity commodity)
         return commodityService.getFocusedCommodity(getFocusRequest.getUsers(), getFocusRequest.getPage());
     }
 
+    @PostMapping("/update")
+    @ApiOperation(value = "更新商品",notes = "成功code=200，失败201")
+
+    public RespBean updateCommodity(@RequestBody Commodity commodity)
+    {
+        return commodityService.updateCommodity(commodity);
+    }
+
     @ApiOperation(value = "获取我的发布",notes = "成功：发布列表 状态码200，失败id 0，状态码201  page为第几页 num为一页几条")
     @GetMapping("/getmy")
     public List<Commodity> getMyRewards(@ApiParam(name="userid",required = true)

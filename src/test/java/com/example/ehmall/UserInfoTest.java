@@ -74,6 +74,33 @@ public class UserInfoTest extends AbstractTestNGSpringContextTests{
         int id1=0;
         assertEquals( userInfoController.setSignature(id1,sig).getMessage(),"失败");
     }
+    @Test
+    public void setIntroTest()
+    {
+        int id=5;
+        String sig="我是一个闲置回收爱好者";
+        assertEquals( userInfoController.setIntro(id,sig).getMessage(),"成功");
+        int id1=0;
+        assertEquals( userInfoController.setIntro(id1,sig).getMessage(),"失败");
+    }
+    @Test
+    public void setIntrestTest()
+    {
+        int id=5;
+        String sig="闲置回收";
+        assertEquals( userInfoController.setInterest(id,sig).getMessage(),"成功");
+        int id1=0;
+        assertEquals( userInfoController.setInterest(id1,sig).getMessage(),"失败");
+    }
+    @Test
+    public void setAgeTest()
+    {
+        int id=5;
+       int age=22;
+        assertEquals( userInfoController.setAge(id,age).getMessage(),"成功");
+        int id1=0;
+        assertEquals( userInfoController.setAge(id1,age).getMessage(),"失败");
+    }
     /**
      * 获取资料接口
      */

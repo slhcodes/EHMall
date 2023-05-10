@@ -88,7 +88,7 @@ public class CommerceTest extends AbstractTestNGSpringContextTests {
     @Test
     public void getMyCommerceTest()
     {
-        System.out.println(commerceController.getMyPricing(5).size());
+        System.out.println(commerceController.getMyPricing(145).size());
     }
 
 

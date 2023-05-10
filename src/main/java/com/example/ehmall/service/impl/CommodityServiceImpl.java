@@ -2,6 +2,7 @@ package com.example.ehmall.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.example.ehmall.entity.*;
 import com.example.ehmall.mapper.CommodityMapper;
@@ -15,6 +16,8 @@ import io.opentracing.Span;
 import io.opentracing.Tracer;
 import io.opentracing.util.GlobalTracer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.BoundHashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,7 +35,8 @@ import java.util.List;
 public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity> implements CommodityService {
     @Autowired
     private CommodityMapper commodityMapper;
-
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
     @Override
     public Commodity getCommodity(int id) {
         /**
@@ -113,6 +117,30 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         lqw.eq(Commodity::getUserId,userid);
         finalList=commodityMapper.selectList(lqw);
         return finalList;
+    }
+
+    @Override
+    public RespBean updateCommodity(Commodity commodity) {
+        Tracer tracer = GlobalTracer.get();
+        // 创建spann
+        Span span = tracer.buildSpan("插入评价表").withTag("EvaluationServiceImpl", "insertComment").start();
+        try (Scope ignored = tracer.scopeManager().activate(span,true)) {
+            tracer.activeSpan().setTag("type", "mysql");
+            UpdateWrapper<Commodity> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.eq("id",commodity.getId());
+            int result=commodityMapper.update(commodity, updateWrapper);
+            if(result==1){
+                BoundHashOperations boundHashOperations=redisTemplate.boundHashOps("Commodity");
+                boundHashOperations.delete(String.valueOf(commodity.getId()));
+                return new RespBean(200, "成功",true);}
+        } catch (Exception e) {
+            TracingHelper.onError(e, span);
+            throw e;
+        } finally {
+            span.finish();
+        }
+        return new RespBean(201, "失败",false);
+
     }
 
 }

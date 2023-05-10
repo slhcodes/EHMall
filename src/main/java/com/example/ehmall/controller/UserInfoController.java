@@ -68,6 +68,30 @@ public class UserInfoController {
     {
         return userInfoService.setSignature(userId,signature);
     }
+    @ApiOperation(value = "修改个人介绍",notes = "修改个人介绍,修改成功返回true，失败返回false")
+    @GetMapping("/changeintroduction")
+    public RespBean setIntro(@ApiParam(name="userId",required = true)
+                                 @RequestParam int userId, @ApiParam(name="introduction",required = true)
+                                 @RequestParam String introduction)
+    {
+        return userInfoService.setIntro(userId,introduction);
+    }
+    @ApiOperation(value = "修改兴趣",notes = "修改兴趣,修改成功返回true，失败返回false")
+    @GetMapping("/changeinterest")
+    public RespBean setInterest(@ApiParam(name="userId",required = true)
+                             @RequestParam int userId, @ApiParam(name="interest",required = true)
+                             @RequestParam String interest)
+    {
+        return userInfoService.setInterest(userId,interest);
+    }
+    @ApiOperation(value = "修改年龄",notes = "修改年龄,修改成功返回true，失败返回false")
+    @GetMapping("/changeage")
+    public RespBean setAge(@ApiParam(name="userId",required = true)
+                                @RequestParam int userId, @ApiParam(name="interest",required = true)
+                                @RequestParam int age)
+    {
+        return userInfoService.setAge(userId,age);
+    }
     @ApiOperation(value = "插入用户",notes = "成功插入返回true，失败false")
     @GetMapping("/insertuser")
     public RespBean insertUserInfo(@ApiParam(name="userId",required = true)

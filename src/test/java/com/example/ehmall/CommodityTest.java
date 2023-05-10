@@ -7,6 +7,7 @@ import com.example.ehmall.service.CommentService;
 import io.opentracing.util.GlobalTracer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.testng.annotations.BeforeClass;
@@ -73,6 +74,22 @@ public class CommodityTest extends AbstractTestNGSpringContextTests {
     public void getMyPost()
     {
         commodityController.getMyRewards(5);
+    }
+    @Test
+    public void updateCommodity()
+    {
+        Commodity com=new Commodity();
+com.setId(110);
+com.setCategory("平板电脑");
+com.setBrand("Phone");
+com.setPrice(560.0F);
+com.setState(true);
+com.setDescription("Phone8p  几乎全新 128G，功能流畅  无维修，手机无暗病，功能都好，指纹正常 ，成色新，拿来做备用机，工作机 很不错 \n");
+com.setTime(new Date(System.currentTimeMillis()));
+com.setQuality("几乎全新");
+com.setUrl1("specific_CMP_20230429112019156.jpgspecific_CMP_20230429112019198.jpg;specific_CMP_20230429112019198.jpg");
+com.setUserId(4);
+        commodityController.updateCommodity(com);
     }
 
 }

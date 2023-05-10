@@ -37,9 +37,16 @@ public interface CommodityService extends IService<Commodity> {
 
     /**
      * 获取我的商品
-     * @param user
+     * @param userid
      * @return
      */
     public List<Commodity> getFocusedCommodity(int userid);
+
+    /**
+     * 更新商品状态
+     * @param commodity 商品实体
+     * @return
+     */
+    public RespBean updateCommodity(Commodity commodity);
 
 }

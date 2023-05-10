@@ -159,10 +159,21 @@ public class CommerceServiceImpl extends ServiceImpl<CommerceMapper, Commerce> i
                 {
                     CommerceInfo temp=new CommerceInfo();
                     temp.setCommerce(res.get(i));
-                    temp.setCommodity(res1.get(i));
-                    UserInfo u=res2.get(i);
-                    temp.setUser(new PartUserInfo(u.getUserId(),u.getImageUrl(),u.getSelfIntroduction(),u.getAge(),u.getGender(),u.getSignature(),u.getUsername(),u.getInterest()));
-                    result.add(temp);
+                    for(Commodity j:res1){
+                        if(j.getId().equals(res.get(i).getCommodityid()))
+                        {
+                    temp.setCommodity(j);break;}}
+                    if(res.get(i).getBuyerid()==userid){
+                    for(UserInfo u:res2){
+                        if(u.getUserId().equals(res.get(i).getSellerid())){
+                            temp.setUser(new PartUserInfo(u.getUserId(),u.getImageUrl(),u.getSelfIntroduction(),u.getAge(),u.getGender(),u.getSignature(),u.getUsername(),u.getInterest()));break;}}}
+                    else
+                    {
+                        for(UserInfo u:res2){
+                            if(u.getUserId().equals(res.get(i).getBuyerid())){
+                                temp.setUser(new PartUserInfo(u.getUserId(),u.getImageUrl(),u.getSelfIntroduction(),u.getAge(),u.getGender(),u.getSignature(),u.getUsername(),u.getInterest()));break;}}
+                    }
+                          result.add(temp);
                 }
 
             }

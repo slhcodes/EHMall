@@ -45,6 +45,30 @@ public interface UserInfoService extends IService<UserInfo> {
      */
     public RespBean setGender(int id,Boolean gender);
     /**
+     * 修改性别
+     * @param id
+     * @param age
+     * @time 2023/4/25
+     * @return
+     */
+    public RespBean setAge(int id,int age);
+    /**
+     * 修改性别
+     * @param id
+     * @param interest
+     * @time 2023/4/25
+     * @return
+     */
+    public RespBean setInterest(int id,String interest);
+    /**
+     * 修改性别
+     * @param id
+     * @param introduction
+     * @time 2023/4/25
+     * @return
+     */
+    public RespBean setIntro(int id,String introduction);
+    /**
      * 修改个签
      * @param id
      * @param signature
