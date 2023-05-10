@@ -218,7 +218,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             UserInfo curUser = userInfoMapper.selectOne(lqw);
             if(curUser!=null)
             {
-                user=new PartUserInfo(curUser.getUserId(),curUser.getUsername(),curUser.getImageUrl(),curUser.getSignature());
+                user=new PartUserInfo(curUser.getUserId(),curUser.getImageUrl(),curUser.getSelfIntroduction(),curUser.getAge(),curUser.getGender(),curUser.getSignature(),curUser.getUsername(),curUser.getInterest());
 
             }
         } catch (Exception e) {

@@ -56,4 +56,13 @@ public class RewardTest extends AbstractTestNGSpringContextTests {
     {
         System.out.println(rewardController.getRewards(1,10));
     }
+    /**
+     * 获取我的悬赏
+     */
+    @Test
+    public void getMyRewardTest()
+    {
+        rewardController.getMyRewards(5);
+    }
+
 }

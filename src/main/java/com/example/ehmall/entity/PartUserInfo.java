@@ -13,12 +13,32 @@ import lombok.EqualsAndHashCode;
 public class PartUserInfo {
     private int id;
     private String imageUrl;
+    /**
+     * 自我介绍
+     */
+    private String selfIntroduction;
+
+    /**
+     * 年龄
+     */
+    private Integer age;
+
+    /**
+     * 性别
+     */
+    private Integer gender;
+    private String interest;
     public PartUserInfo(){}
-    public PartUserInfo(int id,String userName , String imageUrl, String signature) {
+
+    public PartUserInfo(int id, String imageUrl, String selfIntroduction, Integer age, Integer gender, String signature, String userName,String interest) {
         this.id = id;
         this.imageUrl = imageUrl;
+        this.selfIntroduction = selfIntroduction;
+        this.age = age;
+        this.gender = gender;
         this.signature = signature;
         this.userName = userName;
+        this.interest=interest;
     }
 
     /**个性签名

@@ -34,13 +34,21 @@ public class RewardController {
         return rewardService.insertReward(reward);
     }
 
-    @ApiOperation(value = "插入悬赏",notes = "成功悬赏列表 状态码200，失败id 0，状态码201  page为第几页 num为一页几条")
+    @ApiOperation(value = "获取所有悬赏",notes = "成功悬赏列表 状态码200，失败id 0，状态码201  page为第几页 num为一页几条")
     @GetMapping("/get")
     public List<Reward> getRewards(@ApiParam(name="page",required = true)
                                        @RequestParam int page,@ApiParam(name="num",required = true)
     @RequestParam int num)
     {
         return rewardService.getReward(page,num);
+    }
+
+    @ApiOperation(value = "获取我的悬赏",notes = "成功悬赏列表 状态码200，失败id 0，状态码201  page为第几页 num为一页几条")
+    @GetMapping("/getmy")
+    public List<Reward> getMyRewards(@ApiParam(name="userid",required = true)
+                                   @RequestParam int userid)
+    {
+        return rewardService.getMyReward(userid);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.ehmall.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.ehmall.entity.Commodity;
 import com.example.ehmall.entity.RespBean;
@@ -65,5 +66,14 @@ public class RewardServiceImpl extends ServiceImpl<RewardMapper, Reward> impleme
         System.out.println(pageS.getPageNum());
         System.out.println(pageS.getPages());
         return pageS.getList();
+    }
+
+    @Override
+    public List<Reward> getMyReward(int userid) {
+        List<Reward> finalList = new ArrayList<>();
+        LambdaQueryWrapper<Reward> lqw=new LambdaQueryWrapper<>();
+        lqw.eq(Reward::getUserid,userid);
+        finalList=rewardMapper.selectList(lqw);
+        return finalList;
     }
 }

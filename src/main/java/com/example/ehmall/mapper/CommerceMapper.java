@@ -4,6 +4,7 @@ import com.example.ehmall.entity.Commerce;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.Date;
 import java.util.List;
@@ -20,5 +21,7 @@ import java.util.List;
 public interface CommerceMapper extends BaseMapper<Commerce> {
     @Select("SELECT * FROM commerce WHERE time BETWEEN #{startTime} AND #{endTime}")
     List<Commerce> selectByTimeRange(Date startTime, Date endTime);
+
+
 
 }

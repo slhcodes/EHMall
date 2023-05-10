@@ -2,6 +2,7 @@ package com.example.ehmall.controller;
 
 
 import com.example.ehmall.entity.Commerce;
+import com.example.ehmall.entity.CommerceInfo;
 import com.example.ehmall.entity.Pricing;
 import com.example.ehmall.entity.RespBean;
 import com.example.ehmall.service.impl.CommerceServiceImpl;
@@ -10,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -50,6 +53,15 @@ public class CommerceController {
                                           commerce)
     {
         return commerceService.insertCommerce(commerce);
+    }
+
+
+    @ApiOperation(value = "获取用户待交易订单",notes = "成功返回交易信息列表，失败返回false;state:0关闭，1等待付款，2已付款，等待交易，3完成")
+    @GetMapping("/getmy")
+    public List<CommerceInfo> getMyPricing(@ApiParam(name="userid",required = true)
+                               @RequestParam int userid)
+    {
+        return commerceService.getMyCommerce(userid);
     }
 
 }

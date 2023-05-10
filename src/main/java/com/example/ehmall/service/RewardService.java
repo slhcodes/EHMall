@@ -27,4 +27,8 @@ public interface RewardService extends IService<Reward> {
      * 获取悬赏
      */
     public List<Reward> getReward(int page, int num);
+    /**
+     * 获取我的悬赏
+     */
+    public List<Reward> getMyReward(int userid);
 }

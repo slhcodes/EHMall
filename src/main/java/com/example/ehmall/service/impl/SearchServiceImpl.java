@@ -65,7 +65,7 @@ public class SearchServiceImpl implements SearchService {
                 UserInfo curUser = userInfoMapper.selectOne(lqw);
                 if(curUser!=null)
                 {
-                   tempUser=new PartUserInfo(curUser.getUserId(),curUser.getUsername(),curUser.getImageUrl(),curUser.getSignature());
+                   tempUser=new PartUserInfo(curUser.getUserId(),curUser.getImageUrl(),curUser.getSelfIntroduction(),curUser.getAge(),curUser.getGender(),curUser.getSignature(),curUser.getUsername(),curUser.getInterest());
                     userInfoList.add(tempUser);
                     String userString=JSON.toJSONString(tempUser);
                     boundHashOperations.put(String.valueOf(i),userString);
