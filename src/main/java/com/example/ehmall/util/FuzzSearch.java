@@ -43,11 +43,11 @@ public class FuzzSearch {
                 if (client==null){
 
                     CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-                    credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("elastic","Zhumeng420+"));
+                    credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("elastic","CUGerhuo444"));
 
                     client = new RestHighLevelClient(
                             RestClient.builder(
-                                    new HttpHost("es-h9zrbdo2.public.tencentelasticsearch.com", 9200, "https")).setHttpClientConfigCallback(f -> f.setDefaultCredentialsProvider(credentialsProvider)));
+                                    new HttpHost("es-8xsozgcd.public.tencentelasticsearch.com", 9200, "https")).setHttpClientConfigCallback(f -> f.setDefaultCredentialsProvider(credentialsProvider)));
                 }
             }
         }
